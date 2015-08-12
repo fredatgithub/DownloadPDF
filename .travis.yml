@@ -1,0 +1,11 @@
+language: csharp
+solution: DownloadPDF.sln
+#install:
+# - nuget restore DownloadPDF.sln
+#  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+#  - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
+#script:
+ # - xbuild /p:Configuration=Release DownloadPDF/DownloadPDF.csproj
+
+notifications:
+  email: false
