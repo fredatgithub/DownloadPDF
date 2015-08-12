@@ -334,27 +334,30 @@
       // labelUrl
       // 
       this.labelUrl.AutoSize = true;
-      this.labelUrl.Location = new System.Drawing.Point(22, 57);
+      this.labelUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.labelUrl.Location = new System.Drawing.Point(22, 58);
       this.labelUrl.Name = "labelUrl";
-      this.labelUrl.Size = new System.Drawing.Size(28, 17);
+      this.labelUrl.Size = new System.Drawing.Size(48, 20);
       this.labelUrl.TabIndex = 2;
-      this.labelUrl.Text = "url:";
+      this.labelUrl.Text = "URL:";
       // 
       // textBoxUrl
       // 
       this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.textBoxUrl.Location = new System.Drawing.Point(66, 54);
+      this.textBoxUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.textBoxUrl.Location = new System.Drawing.Point(74, 54);
       this.textBoxUrl.Name = "textBoxUrl";
-      this.textBoxUrl.Size = new System.Drawing.Size(1019, 22);
+      this.textBoxUrl.Size = new System.Drawing.Size(1011, 26);
       this.textBoxUrl.TabIndex = 3;
       this.textBoxUrl.Text = "https://";
       // 
       // buttonDownloadPdfFiles
       // 
-      this.buttonDownloadPdfFiles.Location = new System.Drawing.Point(560, 293);
+      this.buttonDownloadPdfFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonDownloadPdfFiles.Location = new System.Drawing.Point(613, 293);
       this.buttonDownloadPdfFiles.Name = "buttonDownloadPdfFiles";
-      this.buttonDownloadPdfFiles.Size = new System.Drawing.Size(91, 28);
+      this.buttonDownloadPdfFiles.Size = new System.Drawing.Size(106, 28);
       this.buttonDownloadPdfFiles.TabIndex = 4;
       this.buttonDownloadPdfFiles.Text = "Download";
       this.buttonDownloadPdfFiles.UseVisualStyleBackColor = true;
@@ -362,19 +365,21 @@
       // 
       // listViewPdfFiles
       // 
-      this.listViewPdfFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.listViewPdfFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.listViewPdfFiles.Location = new System.Drawing.Point(25, 333);
       this.listViewPdfFiles.Name = "listViewPdfFiles";
-      this.listViewPdfFiles.Size = new System.Drawing.Size(1060, 174);
+      this.listViewPdfFiles.Size = new System.Drawing.Size(1060, 177);
       this.listViewPdfFiles.TabIndex = 5;
       this.listViewPdfFiles.UseCompatibleStateImageBehavior = false;
       // 
       // buttonSelectUnselect
       // 
+      this.buttonSelectUnselect.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.buttonSelectUnselect.Location = new System.Drawing.Point(25, 290);
       this.buttonSelectUnselect.Name = "buttonSelectUnselect";
-      this.buttonSelectUnselect.Size = new System.Drawing.Size(136, 28);
+      this.buttonSelectUnselect.Size = new System.Drawing.Size(189, 28);
       this.buttonSelectUnselect.TabIndex = 6;
       this.buttonSelectUnselect.Text = "Select-Unselect All";
       this.buttonSelectUnselect.UseVisualStyleBackColor = true;
@@ -385,12 +390,12 @@
       this.textBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.textBoxLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.textBoxLog.Location = new System.Drawing.Point(25, 155);
+      this.textBoxLog.Location = new System.Drawing.Point(25, 145);
       this.textBoxLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
       this.textBoxLog.Multiline = true;
       this.textBoxLog.Name = "textBoxLog";
       this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.textBoxLog.Size = new System.Drawing.Size(1060, 122);
+      this.textBoxLog.Size = new System.Drawing.Size(1060, 132);
       this.textBoxLog.TabIndex = 15;
       this.textBoxLog.Text = "Log";
       // 
@@ -410,7 +415,7 @@
       // 
       this.labelSelectListViewItems.AutoSize = true;
       this.labelSelectListViewItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.labelSelectListViewItems.Location = new System.Drawing.Point(167, 293);
+      this.labelSelectListViewItems.Location = new System.Drawing.Point(220, 293);
       this.labelSelectListViewItems.Name = "labelSelectListViewItems";
       this.labelSelectListViewItems.Size = new System.Drawing.Size(375, 25);
       this.labelSelectListViewItems.TabIndex = 20;

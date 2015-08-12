@@ -154,5 +154,60 @@
       <englishValue>There is nothing to copy</englishValue>
       <frenchValue>Il n'y a rien à copier</frenchValue>
     </term>
+    <term>
+      <name>Download</name>
+      <englishValue>Download</englishValue>
+      <frenchValue>Télécharger</frenchValue>
+    </term>
+    <term>
+      <name>Clear Log</name>
+      <englishValue>Clear Log</englishValue>
+      <frenchValue>Effacer le log</frenchValue>
+    </term>
+    <term>
+      <name>Select-Unselect All</name>
+      <englishValue>Select-Unselect All</englishValue>
+      <frenchValue>Intervertir la sélection</frenchValue>
+    </term>
+    <term>
+      <name>Select the PDF files you want to download</name>
+      <englishValue>Select the PDF files you want to download</englishValue>
+      <frenchValue>Sélectionner les fichiers PDF à télécharger</frenchValue>
+    </term>
+    <term>
+      <name>Clearing past results</name>
+      <englishValue>Clearing past results</englishValue>
+      <frenchValue>Effacement des résultats précédents</frenchValue>
+    </term>
+    <term>
+      <name>The URL is empty</name>
+      <englishValue>The URL is empty</englishValue>
+      <frenchValue>L'URL est vide</frenchValue>
+    </term>
+    <term>
+      <name>Enter a correct URL</name>
+      <englishValue>Enter a correct URL</englishValue>
+      <frenchValue>Entrer une URL correcte</frenchValue>
+    </term>
+    <term>
+      <name>URL empty</name>
+      <englishValue>URL empty</englishValue>
+      <frenchValue>URL vide</frenchValue>
+    </term>
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
   </terms>
 </Document>

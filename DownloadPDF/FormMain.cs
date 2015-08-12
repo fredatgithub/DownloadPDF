@@ -263,6 +263,7 @@ namespace DownloadPDF
       Height = Settings.Default.WindowHeight;
       Top = Settings.Default.WindowTop < 0 ? 0 : Settings.Default.WindowTop;
       Left = Settings.Default.WindowLeft < 0 ? 0 : Settings.Default.WindowLeft;
+      textBoxUrl.Text = Settings.Default.textBoxUrl;
     }
 
     private void SaveWindowValue()
@@ -272,6 +273,7 @@ namespace DownloadPDF
       Settings.Default.WindowLeft = Left;
       Settings.Default.WindowTop = Top;
       Settings.Default.LastLanguageUsed = frenchToolStripMenuItem.Checked ? "French" : "English";
+      Settings.Default.textBoxUrl = textBoxUrl.Text;
       Settings.Default.Save();
     }
 
@@ -326,6 +328,11 @@ namespace DownloadPDF
           searchToolStripMenuItem.Text = _languageDicoEn["MenuHelpSearch"];
           aboutToolStripMenuItem.Text = _languageDicoEn["MenuHelpAbout"];
 
+          buttonClearLogTextBox.Text = _languageDicoEn["Clear Log"];
+          buttonSelectUnselect.Text = _languageDicoEn["Select-Unselect All"];
+          labelSelectListViewItems.Text = _languageDicoEn["Select the PDF files you want to download"];
+          buttonDownloadPdfFiles.Text = _languageDicoEn["Download"];
+
           _currentLanguage = "English";
           break;
         case "French":
@@ -357,7 +364,10 @@ namespace DownloadPDF
           indexToolStripMenuItem.Text = _languageDicoFr["MenuHelpIndex"];
           searchToolStripMenuItem.Text = _languageDicoFr["MenuHelpSearch"];
           aboutToolStripMenuItem.Text = _languageDicoFr["MenuHelpAbout"];
-
+          buttonClearLogTextBox.Text = _languageDicoFr["Clear Log"];
+          buttonSelectUnselect.Text = _languageDicoFr["Select-Unselect All"];
+          labelSelectListViewItems.Text = _languageDicoFr["Select the PDF files you want to download"];
+          buttonDownloadPdfFiles.Text = _languageDicoFr["Download"];
           _currentLanguage = "French";
           break;
       }
@@ -559,7 +569,7 @@ namespace DownloadPDF
       {
         DisplayMessageOk(Translate("The URL is empty") +
           Punctuation.Period + Punctuation.NewLine +
-          Translate("Enter a correct path"),
+          Translate("Enter a correct URL"),
           Translate("URL empty"), MessageBoxButtons.OK);
         Logger.Add(textBoxLog, Translate("The URL is empty"));
         return;

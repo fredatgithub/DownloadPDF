@@ -20,5 +20,8 @@
     <Setting Name="LanguageFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Translations.xml</Value>
     </Setting>
+    <Setting Name="textBoxUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
