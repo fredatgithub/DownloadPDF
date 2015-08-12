@@ -194,6 +194,36 @@
       <englishValue>URL empty</englishValue>
       <frenchValue>URL vide</frenchValue>
     </term>
+    <term>
+      <name>The URL is not correct</name>
+      <englishValue>The URL is not correct</englishValue>
+      <frenchValue>L'URL n'est pas correcte</frenchValue>
+    </term>
+    <term>
+      <name>Bad URL</name>
+      <englishValue>Bad URL</englishValue>
+      <frenchValue>Mauvaise URL</frenchValue>
+    </term>
+    <term>
+      <name>Connecting to the url to get PDF files</name>
+      <englishValue>Connecting to the url to get PDF files</englishValue>
+      <frenchValue>Connexion à l'url pour obtenir la liste des fichiers PDF</frenchValue>
+    </term>
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
     <!--<term>
       <name></name>
       <englishValue></englishValue>

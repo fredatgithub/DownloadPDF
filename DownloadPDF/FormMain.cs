@@ -575,7 +575,54 @@ namespace DownloadPDF
         return;
       }
 
+      if (!UrlIsValid(textBoxUrl.Text))
+      {
+        DisplayMessageOk(Translate("The URL is not correct") +
+          Punctuation.Period + Punctuation.NewLine +
+          Translate("Enter a correct url"),
+          Translate("Bad URL"), MessageBoxButtons.OK);
+        Logger.Add(textBoxLog, Translate("The URL is not correct"));
+        return;
+      }
 
+      Logger.Add(textBoxLog, Translate("Connecting to the url to get PDF files"));
+      listViewPdfFiles.Items.Clear();
+
+      listViewPdfFiles.Columns.Add("To be updated", 240, HorizontalAlignment.Left);
+      listViewPdfFiles.Columns.Add("PDF Name", 240, HorizontalAlignment.Left);
+      listViewPdfFiles.Columns.Add("Description", 640, HorizontalAlignment.Left);
+
+      listViewPdfFiles.View = View.Details;
+      listViewPdfFiles.LabelEdit = false;
+      listViewPdfFiles.AllowColumnReorder = true;
+      listViewPdfFiles.CheckBoxes = true;
+      listViewPdfFiles.FullRowSelect = true;
+      listViewPdfFiles.GridLines = true;
+      listViewPdfFiles.Sorting = SortOrder.None;
+      int PdfFileCount = 0;
+      // foreach files in url
+      string tmpPdfFileName = "";
+      string tmpPdfFiledescription = "";
+      List<string> listOfPdfFiles = new List<string>();
+      if (listOfPdfFiles.Count != 0)
+      {
+        ListViewItem item1 = new ListViewItem(tmpPdfFileName) { Checked = false };
+        item1.SubItems.Add(tmpPdfFileName);
+        item1.SubItems.Add(tmpPdfFiledescription);
+        listViewPdfFiles.Items.Add(item1);
+        PdfFileCount++;
+      }
+
+    }
+
+    private static bool UrlIsValid(string url)
+    {
+      return url.StartsWith("http");
+    }
+
+    private static bool IsUrlValid(string url)
+    {
+      return url.StartsWith("http");
     }
   }
 }
