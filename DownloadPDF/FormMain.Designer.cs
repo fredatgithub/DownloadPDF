@@ -28,6 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -350,7 +351,7 @@
       this.textBoxUrl.Name = "textBoxUrl";
       this.textBoxUrl.Size = new System.Drawing.Size(1011, 26);
       this.textBoxUrl.TabIndex = 3;
-      this.textBoxUrl.Text = "https://";
+      this.textBoxUrl.Text = resources.GetString("textBoxUrl.Text");
       // 
       // buttonDownloadPdfFiles
       // 

@@ -209,16 +209,16 @@
       <englishValue>Connecting to the url to get PDF files</englishValue>
       <frenchValue>Connexion à l'url pour obtenir la liste des fichiers PDF</frenchValue>
     </term>
-    <!--<term>
-      <name></name>
-      <englishValue></englishValue>
-      <frenchValue></frenchValue>
-    </term>-->
-    <!--<term>
-      <name></name>
-      <englishValue></englishValue>
-      <frenchValue></frenchValue>
-    </term>-->
+    <term>
+      <name>PDF file</name>
+      <englishValue>PDF file</englishValue>
+      <frenchValue>fichier PDF</frenchValue>
+    </term>
+    <term>
+      <name>file</name>
+      <englishValue>file</englishValue>
+      <frenchValue>fichier</frenchValue>
+    </term>
     <!--<term>
       <name></name>
       <englishValue></englishValue>
