@@ -22,10 +22,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using DownloadPDF.Properties;
+using NamespaceYouAreUsing;
 
 namespace DownloadPDF
 {
@@ -363,7 +365,7 @@ namespace DownloadPDF
 
     private void cutToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Control focusedControl = FindFocusedControl(new List<Control> { }); // add your controls in the List
+      Control focusedControl = FindFocusedControl(new List<Control> { textBoxUrl });
       var tb = focusedControl as TextBox;
       if (tb != null)
       {
@@ -373,7 +375,7 @@ namespace DownloadPDF
 
     private void copyToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Control focusedControl = FindFocusedControl(new List<Control> { }); // add your controls in the List
+      Control focusedControl = FindFocusedControl(new List<Control> { textBoxUrl });
       var tb = focusedControl as TextBox;
       if (tb != null)
       {
@@ -383,7 +385,7 @@ namespace DownloadPDF
 
     private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Control focusedControl = FindFocusedControl(new List<Control> { }); // add your controls in the List
+      Control focusedControl = FindFocusedControl(new List<Control> { textBoxUrl });
       var tb = focusedControl as TextBox;
       if (tb != null)
       {
@@ -393,7 +395,7 @@ namespace DownloadPDF
 
     private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      Control focusedControl = FindFocusedControl(new List<Control> { }); // add your controls in the List
+      Control focusedControl = FindFocusedControl(new List<Control> { textBoxUrl });
       if (focusedControl is TextBox)
       {
         ((TextBox)focusedControl).SelectAll();
@@ -405,17 +407,17 @@ namespace DownloadPDF
       if (tb != ActiveControl) return;
       if (tb.Text == string.Empty)
       {
-        DisplayMessageOk(GetTranslatedString("ThereIs") + OneSpace +
-          GetTranslatedString(errorMessage) + OneSpace +
-          GetTranslatedString("ToCut") + OneSpace, GetTranslatedString(errorMessage),
+        DisplayMessageOk(Translate("ThereIs") + OneSpace +
+          Translate(errorMessage) + OneSpace +
+          Translate("ToCut") + OneSpace, Translate(errorMessage),
           MessageBoxButtons.OK);
         return;
       }
 
       if (tb.SelectedText == string.Empty)
       {
-        DisplayMessageOk(GetTranslatedString("NoTextHasBeenSelected"),
-          GetTranslatedString(errorMessage), MessageBoxButtons.OK);
+        DisplayMessageOk(Translate("NoTextHasBeenSelected"),
+          Translate(errorMessage), MessageBoxButtons.OK);
         return;
       }
 
@@ -428,15 +430,15 @@ namespace DownloadPDF
       if (tb != ActiveControl) return;
       if (tb.Text == string.Empty)
       {
-        DisplayMessageOk(GetTranslatedString("ThereIsNothingToCopy") + OneSpace,
-          GetTranslatedString(message), MessageBoxButtons.OK);
+        DisplayMessageOk(Translate("ThereIsNothingToCopy") + OneSpace,
+          Translate(message), MessageBoxButtons.OK);
         return;
       }
 
       if (tb.SelectedText == string.Empty)
       {
-        DisplayMessageOk(GetTranslatedString("NoTextHasBeenSelected"),
-          GetTranslatedString(message), MessageBoxButtons.OK);
+        DisplayMessageOk(Translate("NoTextHasBeenSelected"),
+          Translate(message), MessageBoxButtons.OK);
         return;
       }
 
@@ -456,18 +458,18 @@ namespace DownloadPDF
       MessageBox.Show(this, message, title, buttons);
     }
 
-    private string GetTranslatedString(string index)
+    private string Translate(string index)
     {
       string result = string.Empty;
       switch (_currentLanguage.ToLower())
       {
         case "english":
           result = _languageDicoEn.ContainsKey(index) ? _languageDicoEn[index] :
-           "the term: \"" + index + "\" has not been translated yet.\nPlease tell the developer to translate this term";
+           "the term: \"" + index + "\" has not been translated yet.\nPlease add the translation term in the Translations.xml file or tell the developer to translate this term";
           break;
         case "french":
           result = _languageDicoFr.ContainsKey(index) ? _languageDicoFr[index] :
-            "the term: \"" + index + "\" has not been translated yet.\nPlease tell the developer to translate this term";
+            "the term: \"" + index + "\" has not been translated yet.\nPlease add the translation term in the Translations.xml file or tell the developer to translate this term";
           break;
       }
 
@@ -505,6 +507,65 @@ namespace DownloadPDF
       }
 
       return result;
+    }
+
+    private static bool GetWebClientBinaries(string url = "http://www.google.com/",
+      string fileName = "untitled-file.pdf")
+    {
+      WebClient client = new WebClient();
+      bool result = false;
+      // set the user agent to IE6
+      client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.0.3705;)");
+      try
+      {
+        client.DownloadFile(url, fileName);
+        result = true;
+      }
+      catch (WebException)
+      {
+        result = false;
+      }
+      catch (NotSupportedException)
+      {
+        result = false;
+      }
+
+      return result;
+    }
+
+    private void buttonSelectUnselect_Click(object sender, EventArgs e)
+    {
+      if (listViewPdfFiles.Items.Count != 0)
+      {
+        ToggleAllItems(listViewPdfFiles);
+      }
+    }
+
+    private static void ToggleAllItems(ListView lvw)
+    {
+      lvw.Items.OfType<ListViewItem>().ToList().ForEach(item => item.Checked = !item.Checked);
+    }
+
+    private void buttonClearLogTextBox_Click(object sender, EventArgs e)
+    {
+      textBoxLog.Text = string.Empty;
+    }
+
+    private void buttonDownloadPdfFiles_Click(object sender, EventArgs e)
+    {
+      Logger.Clear(textBoxLog);
+      Logger.Add(textBoxLog, Translate("Clearing past results"));
+      if (textBoxUrl.Text == string.Empty)
+      {
+        DisplayMessageOk(Translate("The URL is empty") +
+          Punctuation.Period + Punctuation.NewLine +
+          Translate("Enter a correct path"),
+          Translate("URL empty"), MessageBoxButtons.OK);
+        Logger.Add(textBoxLog, Translate("The URL is empty"));
+        return;
+      }
+
+
     }
   }
 }

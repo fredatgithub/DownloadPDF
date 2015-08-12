@@ -61,6 +61,14 @@
       this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.labelUrl = new System.Windows.Forms.Label();
+      this.textBoxUrl = new System.Windows.Forms.TextBox();
+      this.buttonDownloadPdfFiles = new System.Windows.Forms.Button();
+      this.listViewPdfFiles = new System.Windows.Forms.ListView();
+      this.buttonSelectUnselect = new System.Windows.Forms.Button();
+      this.textBoxLog = new System.Windows.Forms.TextBox();
+      this.buttonClearLogTextBox = new System.Windows.Forms.Button();
+      this.labelSelectListViewItems = new System.Windows.Forms.Label();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -76,7 +84,7 @@
       this.menuStrip1.Location = new System.Drawing.Point(0, 0);
       this.menuStrip1.Name = "menuStrip1";
       this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-      this.menuStrip1.Size = new System.Drawing.Size(911, 28);
+      this.menuStrip1.Size = new System.Drawing.Size(1110, 28);
       this.menuStrip1.TabIndex = 1;
       this.menuStrip1.Text = "menuStrip1";
       // 
@@ -323,16 +331,110 @@
       this.aboutToolStripMenuItem.Text = "À &propos de...";
       this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
       // 
+      // labelUrl
+      // 
+      this.labelUrl.AutoSize = true;
+      this.labelUrl.Location = new System.Drawing.Point(22, 57);
+      this.labelUrl.Name = "labelUrl";
+      this.labelUrl.Size = new System.Drawing.Size(28, 17);
+      this.labelUrl.TabIndex = 2;
+      this.labelUrl.Text = "url:";
+      // 
+      // textBoxUrl
+      // 
+      this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.textBoxUrl.Location = new System.Drawing.Point(66, 54);
+      this.textBoxUrl.Name = "textBoxUrl";
+      this.textBoxUrl.Size = new System.Drawing.Size(1019, 22);
+      this.textBoxUrl.TabIndex = 3;
+      this.textBoxUrl.Text = "https://";
+      // 
+      // buttonDownloadPdfFiles
+      // 
+      this.buttonDownloadPdfFiles.Location = new System.Drawing.Point(560, 293);
+      this.buttonDownloadPdfFiles.Name = "buttonDownloadPdfFiles";
+      this.buttonDownloadPdfFiles.Size = new System.Drawing.Size(91, 28);
+      this.buttonDownloadPdfFiles.TabIndex = 4;
+      this.buttonDownloadPdfFiles.Text = "Download";
+      this.buttonDownloadPdfFiles.UseVisualStyleBackColor = true;
+      this.buttonDownloadPdfFiles.Click += new System.EventHandler(this.buttonDownloadPdfFiles_Click);
+      // 
+      // listViewPdfFiles
+      // 
+      this.listViewPdfFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.listViewPdfFiles.Location = new System.Drawing.Point(25, 333);
+      this.listViewPdfFiles.Name = "listViewPdfFiles";
+      this.listViewPdfFiles.Size = new System.Drawing.Size(1060, 174);
+      this.listViewPdfFiles.TabIndex = 5;
+      this.listViewPdfFiles.UseCompatibleStateImageBehavior = false;
+      // 
+      // buttonSelectUnselect
+      // 
+      this.buttonSelectUnselect.Location = new System.Drawing.Point(25, 290);
+      this.buttonSelectUnselect.Name = "buttonSelectUnselect";
+      this.buttonSelectUnselect.Size = new System.Drawing.Size(136, 28);
+      this.buttonSelectUnselect.TabIndex = 6;
+      this.buttonSelectUnselect.Text = "Select-Unselect All";
+      this.buttonSelectUnselect.UseVisualStyleBackColor = true;
+      this.buttonSelectUnselect.Click += new System.EventHandler(this.buttonSelectUnselect_Click);
+      // 
+      // textBoxLog
+      // 
+      this.textBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.textBoxLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.textBoxLog.Location = new System.Drawing.Point(25, 155);
+      this.textBoxLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+      this.textBoxLog.Multiline = true;
+      this.textBoxLog.Name = "textBoxLog";
+      this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+      this.textBoxLog.Size = new System.Drawing.Size(1060, 122);
+      this.textBoxLog.TabIndex = 15;
+      this.textBoxLog.Text = "Log";
+      // 
+      // buttonClearLogTextBox
+      // 
+      this.buttonClearLogTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonClearLogTextBox.Location = new System.Drawing.Point(25, 99);
+      this.buttonClearLogTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+      this.buttonClearLogTextBox.Name = "buttonClearLogTextBox";
+      this.buttonClearLogTextBox.Size = new System.Drawing.Size(132, 32);
+      this.buttonClearLogTextBox.TabIndex = 19;
+      this.buttonClearLogTextBox.Text = "Clear Log";
+      this.buttonClearLogTextBox.UseVisualStyleBackColor = true;
+      this.buttonClearLogTextBox.Click += new System.EventHandler(this.buttonClearLogTextBox_Click);
+      // 
+      // labelSelectListViewItems
+      // 
+      this.labelSelectListViewItems.AutoSize = true;
+      this.labelSelectListViewItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.labelSelectListViewItems.Location = new System.Drawing.Point(167, 293);
+      this.labelSelectListViewItems.Name = "labelSelectListViewItems";
+      this.labelSelectListViewItems.Size = new System.Drawing.Size(375, 25);
+      this.labelSelectListViewItems.TabIndex = 20;
+      this.labelSelectListViewItems.Text = "Select the PDF files you want to download";
+      // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(911, 534);
+      this.ClientSize = new System.Drawing.Size(1110, 534);
+      this.Controls.Add(this.labelSelectListViewItems);
+      this.Controls.Add(this.buttonClearLogTextBox);
+      this.Controls.Add(this.textBoxLog);
+      this.Controls.Add(this.buttonSelectUnselect);
+      this.Controls.Add(this.listViewPdfFiles);
+      this.Controls.Add(this.buttonDownloadPdfFiles);
+      this.Controls.Add(this.textBoxUrl);
+      this.Controls.Add(this.labelUrl);
       this.Controls.Add(this.menuStrip1);
       this.MainMenuStrip = this.menuStrip1;
       this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
       this.Name = "FormMain";
       this.ShowIcon = false;
+      this.Text = "Download PDF files";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMainFormClosing);
       this.Load += new System.EventHandler(this.FormMain_Load);
       this.menuStrip1.ResumeLayout(false);
@@ -377,5 +479,13 @@
     private System.Windows.Forms.ToolStripMenuItem languagetoolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem frenchToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
+    private System.Windows.Forms.Label labelUrl;
+    private System.Windows.Forms.TextBox textBoxUrl;
+    private System.Windows.Forms.Button buttonDownloadPdfFiles;
+    private System.Windows.Forms.ListView listViewPdfFiles;
+    private System.Windows.Forms.Button buttonSelectUnselect;
+    private System.Windows.Forms.TextBox textBoxLog;
+    private System.Windows.Forms.Button buttonClearLogTextBox;
+    private System.Windows.Forms.Label labelSelectListViewItems;
   }
 }
