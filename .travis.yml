@@ -4,8 +4,8 @@ solution: DownloadPDF.sln
 # - nuget restore DownloadPDF.sln
 #  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 #  - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
-#script:
- # - xbuild /p:Configuration=Release DownloadPDF/DownloadPDF.csproj
+script:
+  - xbuild /p:Configuration=Release DownloadPDF/DownloadPDF.csproj
 
 notifications:
   email: false
