@@ -24,11 +24,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Xml.Linq;
 using DownloadPDF.Properties;
+using HtmlAgilityPack;
 using NamespaceYouAreUsing;
+using HtmlDocument = System.Windows.Forms.HtmlDocument;
 
 namespace DownloadPDF
 {
@@ -418,7 +421,7 @@ namespace DownloadPDF
       if (tb != ActiveControl) return;
       if (tb.Text == string.Empty)
       {
-        DisplayMessageOk(Translate("ThereIs") + OneSpace +
+        DisplayMessage(Translate("ThereIs") + OneSpace +
           Translate(errorMessage) + OneSpace +
           Translate("ToCut") + OneSpace, Translate(errorMessage),
           MessageBoxButtons.OK);
@@ -427,7 +430,7 @@ namespace DownloadPDF
 
       if (tb.SelectedText == string.Empty)
       {
-        DisplayMessageOk(Translate("NoTextHasBeenSelected"),
+        DisplayMessage(Translate("NoTextHasBeenSelected"),
           Translate(errorMessage), MessageBoxButtons.OK);
         return;
       }
@@ -441,14 +444,14 @@ namespace DownloadPDF
       if (tb != ActiveControl) return;
       if (tb.Text == string.Empty)
       {
-        DisplayMessageOk(Translate("ThereIsNothingToCopy") + OneSpace,
+        DisplayMessage(Translate("ThereIsNothingToCopy") + OneSpace,
           Translate(message), MessageBoxButtons.OK);
         return;
       }
 
       if (tb.SelectedText == string.Empty)
       {
-        DisplayMessageOk(Translate("NoTextHasBeenSelected"),
+        DisplayMessage(Translate("NoTextHasBeenSelected"),
           Translate(message), MessageBoxButtons.OK);
         return;
       }
@@ -464,7 +467,7 @@ namespace DownloadPDF
       tb.SelectionStart = selectionIndex + Clipboard.GetText().Length;
     }
 
-    private void DisplayMessageOk(string message, string title, MessageBoxButtons buttons)
+    private void DisplayMessage(string message, string title, MessageBoxButtons buttons)
     {
       MessageBox.Show(this, message, title, buttons);
     }
@@ -568,7 +571,7 @@ namespace DownloadPDF
       Logger.Add(textBoxLog, Translate("Clearing past results"));
       if (textBoxUrl.Text == string.Empty)
       {
-        DisplayMessageOk(Translate("The URL is empty") +
+        DisplayMessage(Translate("The URL is empty") +
           Punctuation.Period + Punctuation.NewLine +
           Translate("Enter a correct URL"),
           Translate("URL empty"), MessageBoxButtons.OK);
@@ -578,7 +581,7 @@ namespace DownloadPDF
 
       if (!UrlIsValid(textBoxUrl.Text))
       {
-        DisplayMessageOk(Translate("The URL is not correct") +
+        DisplayMessage(Translate("The URL is not correct") +
           Punctuation.Period + Punctuation.NewLine +
           Translate("Enter a correct url"),
           Translate("Bad URL"), MessageBoxButtons.OK);
@@ -587,10 +590,41 @@ namespace DownloadPDF
       }
 
       Logger.Add(textBoxLog, Translate("Connecting to the url to get PDF files"));
+      //WebRequest wr = WebRequest.CreateHttp(new Uri(textBoxUrl.Text));
+      HttpWebRequest request = WebRequest.Create(textBoxUrl.Text) as HttpWebRequest;
+      request.Method = "GET"; //Get only the "HEAD" header information -- no need to download any content
+
+      HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+      int statusCode = (int)response.StatusCode;
+      if (statusCode >= 100 && statusCode < 400) //Good requests
+      {
+        // parse response for some div
+      }
+      else
+      {
+        // bad request display error and quit
+        return;
+      }
+
+      StreamReader responseStream = new StreamReader(response.GetResponseStream(), System.Text.Encoding.UTF8);
+
+      string queryContent = responseStream.ReadToEnd();
+      HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+      doc.LoadHtml(queryContent);
+      HtmlNode bodyNode = doc.DocumentNode.SelectSingleNode("//body | //BODY");
+      List<string> downloadList = new List<string>();
+      foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
+      {
+        downloadList.Add(link.InnerText);
+      }
+      // doc.Save("file.html");
+
       listViewPdfFiles.Items.Clear();
 
       listViewPdfFiles.Columns.Add("To be updated", 240, HorizontalAlignment.Left);
       listViewPdfFiles.Columns.Add("PDF Name", 240, HorizontalAlignment.Left);
+      listViewPdfFiles.Columns.Add("File Format", 240, HorizontalAlignment.Left);
       listViewPdfFiles.Columns.Add("Description", 640, HorizontalAlignment.Left);
 
       listViewPdfFiles.View = View.Details;
@@ -615,7 +649,7 @@ namespace DownloadPDF
       }
 
 
-      Logger.Add(textBoxLog, PdfFileCount + Punctuation.OneSpace + 
+      Logger.Add(textBoxLog, PdfFileCount + Punctuation.OneSpace +
         Translate("PDF file") + Plural(PdfFileCount) +
         Punctuation.OneSpace + Translate(Plural(PdfFileCount, "has")) + OneSpace +
         Translate("been found") + FrenchPlural(PdfFileCount, _currentLanguage));
@@ -645,8 +679,16 @@ namespace DownloadPDF
 
     public static bool IsUrlValid(string url)
     {
-      // TODO use regex more precisely
-      return url.StartsWith("http");
+      Uri uriResult;
+      bool result = Uri.TryCreate(url, UriKind.Absolute, out uriResult)
+                    && (uriResult.Scheme == Uri.UriSchemeHttp
+                        || uriResult.Scheme == Uri.UriSchemeHttps);
+      return result;
+    }
+
+    public static bool IsUrlWellFormed(string url)
+    {
+      return Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute);
     }
 
     private static string Plural(int number, string irregularNoun = "")
