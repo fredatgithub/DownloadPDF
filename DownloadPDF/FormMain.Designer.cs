@@ -64,12 +64,13 @@
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.labelUrl = new System.Windows.Forms.Label();
       this.textBoxUrl = new System.Windows.Forms.TextBox();
-      this.buttonDownloadPdfFiles = new System.Windows.Forms.Button();
+      this.buttonGetPdfFileList = new System.Windows.Forms.Button();
       this.listViewPdfFiles = new System.Windows.Forms.ListView();
       this.buttonSelectUnselect = new System.Windows.Forms.Button();
       this.textBoxLog = new System.Windows.Forms.TextBox();
       this.buttonClearLogTextBox = new System.Windows.Forms.Button();
       this.labelSelectListViewItems = new System.Windows.Forms.Label();
+      this.buttonDownloadSelectedItems = new System.Windows.Forms.Button();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -353,16 +354,16 @@
       this.textBoxUrl.TabIndex = 3;
       this.textBoxUrl.Text = resources.GetString("textBoxUrl.Text");
       // 
-      // buttonDownloadPdfFiles
+      // buttonGetPdfFileList
       // 
-      this.buttonDownloadPdfFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.buttonDownloadPdfFiles.Location = new System.Drawing.Point(613, 293);
-      this.buttonDownloadPdfFiles.Name = "buttonDownloadPdfFiles";
-      this.buttonDownloadPdfFiles.Size = new System.Drawing.Size(106, 28);
-      this.buttonDownloadPdfFiles.TabIndex = 4;
-      this.buttonDownloadPdfFiles.Text = "Download";
-      this.buttonDownloadPdfFiles.UseVisualStyleBackColor = true;
-      this.buttonDownloadPdfFiles.Click += new System.EventHandler(this.buttonDownloadPdfFiles_Click);
+      this.buttonGetPdfFileList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonGetPdfFileList.Location = new System.Drawing.Point(613, 293);
+      this.buttonGetPdfFileList.Name = "buttonGetPdfFileList";
+      this.buttonGetPdfFileList.Size = new System.Drawing.Size(154, 28);
+      this.buttonGetPdfFileList.TabIndex = 4;
+      this.buttonGetPdfFileList.Text = "Get Titles";
+      this.buttonGetPdfFileList.UseVisualStyleBackColor = true;
+      this.buttonGetPdfFileList.Click += new System.EventHandler(this.buttonGetPdfFilesTitles_Click);
       // 
       // listViewPdfFiles
       // 
@@ -422,17 +423,30 @@
       this.labelSelectListViewItems.TabIndex = 20;
       this.labelSelectListViewItems.Text = "Select the PDF files you want to download";
       // 
+      // buttonDownloadSelectedItems
+      // 
+      this.buttonDownloadSelectedItems.Enabled = false;
+      this.buttonDownloadSelectedItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonDownloadSelectedItems.Location = new System.Drawing.Point(784, 293);
+      this.buttonDownloadSelectedItems.Name = "buttonDownloadSelectedItems";
+      this.buttonDownloadSelectedItems.Size = new System.Drawing.Size(106, 28);
+      this.buttonDownloadSelectedItems.TabIndex = 21;
+      this.buttonDownloadSelectedItems.Text = "Download";
+      this.buttonDownloadSelectedItems.UseVisualStyleBackColor = true;
+      this.buttonDownloadSelectedItems.Click += new System.EventHandler(this.buttonDownloadSelectedItems_Click);
+      // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1110, 534);
+      this.Controls.Add(this.buttonDownloadSelectedItems);
       this.Controls.Add(this.labelSelectListViewItems);
       this.Controls.Add(this.buttonClearLogTextBox);
       this.Controls.Add(this.textBoxLog);
       this.Controls.Add(this.buttonSelectUnselect);
       this.Controls.Add(this.listViewPdfFiles);
-      this.Controls.Add(this.buttonDownloadPdfFiles);
+      this.Controls.Add(this.buttonGetPdfFileList);
       this.Controls.Add(this.textBoxUrl);
       this.Controls.Add(this.labelUrl);
       this.Controls.Add(this.menuStrip1);
@@ -487,11 +501,12 @@
     private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
     private System.Windows.Forms.Label labelUrl;
     private System.Windows.Forms.TextBox textBoxUrl;
-    private System.Windows.Forms.Button buttonDownloadPdfFiles;
+    private System.Windows.Forms.Button buttonGetPdfFileList;
     private System.Windows.Forms.ListView listViewPdfFiles;
     private System.Windows.Forms.Button buttonSelectUnselect;
     private System.Windows.Forms.TextBox textBoxLog;
     private System.Windows.Forms.Button buttonClearLogTextBox;
     private System.Windows.Forms.Label labelSelectListViewItems;
+    private System.Windows.Forms.Button buttonDownloadSelectedItems;
   }
 }

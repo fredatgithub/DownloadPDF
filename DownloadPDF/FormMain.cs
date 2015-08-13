@@ -17,6 +17,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,14 +25,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text.RegularExpressions;
+using System.Text;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using System.Xml.Linq;
 using DownloadPDF.Properties;
 using HtmlAgilityPack;
 using NamespaceYouAreUsing;
-using HtmlDocument = System.Windows.Forms.HtmlDocument;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace DownloadPDF
 {
@@ -331,12 +331,11 @@ namespace DownloadPDF
           indexToolStripMenuItem.Text = _languageDicoEn["MenuHelpIndex"];
           searchToolStripMenuItem.Text = _languageDicoEn["MenuHelpSearch"];
           aboutToolStripMenuItem.Text = _languageDicoEn["MenuHelpAbout"];
-
           buttonClearLogTextBox.Text = _languageDicoEn["Clear Log"];
           buttonSelectUnselect.Text = _languageDicoEn["Select-Unselect All"];
           labelSelectListViewItems.Text = _languageDicoEn["Select the PDF files you want to download"];
-          buttonDownloadPdfFiles.Text = _languageDicoEn["Download"];
-
+          buttonGetPdfFileList.Text = _languageDicoEn["Get Titles"];
+          buttonDownloadSelectedItems.Text = _languageDicoEn["Download"];
           _currentLanguage = "English";
           break;
         case "French":
@@ -371,7 +370,8 @@ namespace DownloadPDF
           buttonClearLogTextBox.Text = _languageDicoFr["Clear Log"];
           buttonSelectUnselect.Text = _languageDicoFr["Select-Unselect All"];
           labelSelectListViewItems.Text = _languageDicoFr["Select the PDF files you want to download"];
-          buttonDownloadPdfFiles.Text = _languageDicoFr["Download"];
+          buttonGetPdfFileList.Text = _languageDicoFr["Get Titles"];
+          buttonDownloadSelectedItems.Text = _languageDicoFr["Download"];
           _currentLanguage = "French";
           break;
       }
@@ -565,7 +565,7 @@ namespace DownloadPDF
       textBoxLog.Text = string.Empty;
     }
 
-    private void buttonDownloadPdfFiles_Click(object sender, EventArgs e)
+    private void buttonGetPdfFilesTitles_Click(object sender, EventArgs e)
     {
       Logger.Clear(textBoxLog);
       Logger.Add(textBoxLog, Translate("Clearing past results"));
@@ -607,10 +607,10 @@ namespace DownloadPDF
         return;
       }
 
-      StreamReader responseStream = new StreamReader(response.GetResponseStream(), System.Text.Encoding.UTF8);
+      StreamReader responseStream = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
 
       string queryContent = responseStream.ReadToEnd();
-      HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+      HtmlDocument doc = new HtmlDocument();
       doc.LoadHtml(queryContent);
       HtmlNode bodyNode = doc.DocumentNode.SelectSingleNode("//body | //BODY");
       List<string> downloadList = new List<string>();
@@ -648,7 +648,7 @@ namespace DownloadPDF
         PdfFileCount++;
       }
 
-
+      buttonDownloadSelectedItems.Enabled = true;
       Logger.Add(textBoxLog, PdfFileCount + Punctuation.OneSpace +
         Translate("PDF file") + Plural(PdfFileCount) +
         Punctuation.OneSpace + Translate(Plural(PdfFileCount, "has")) + OneSpace +
@@ -789,6 +789,11 @@ namespace DownloadPDF
     private static string FrenchPlural(int number, string currentLanguage = "english")
     {
       return (number > 1 && currentLanguage.ToLower() == "french") ? "s" : string.Empty;
+    }
+
+    private void buttonDownloadSelectedItems_Click(object sender, EventArgs e)
+    {
+
     }
   }
 }

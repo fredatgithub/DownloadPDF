@@ -219,11 +219,11 @@
       <englishValue>file</englishValue>
       <frenchValue>fichier</frenchValue>
     </term>
-    <!--<term>
-      <name></name>
-      <englishValue></englishValue>
-      <frenchValue></frenchValue>
-    </term>-->
+    <term>
+      <name>Get Titles</name>
+      <englishValue>Get Titles</englishValue>
+      <frenchValue>Obtenir les titres</frenchValue>
+    </term>
     <!--<term>
       <name></name>
       <englishValue></englishValue>
