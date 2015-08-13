@@ -645,6 +645,7 @@ namespace DownloadPDF
 
     public static bool IsUrlValid(string url)
     {
+      // TODO use regex more precisely
       return url.StartsWith("http");
     }
 
