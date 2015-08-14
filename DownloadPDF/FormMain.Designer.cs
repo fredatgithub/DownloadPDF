@@ -71,6 +71,7 @@
       this.buttonClearLogTextBox = new System.Windows.Forms.Button();
       this.labelSelectListViewItems = new System.Windows.Forms.Label();
       this.buttonDownloadSelectedItems = new System.Windows.Forms.Button();
+      this.buttonDownloadAlleBooks = new System.Windows.Forms.Button();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -356,6 +357,7 @@
       // 
       // buttonGetPdfFileList
       // 
+      this.buttonGetPdfFileList.Enabled = false;
       this.buttonGetPdfFileList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.buttonGetPdfFileList.Location = new System.Drawing.Point(613, 293);
       this.buttonGetPdfFileList.Name = "buttonGetPdfFileList";
@@ -435,11 +437,23 @@
       this.buttonDownloadSelectedItems.UseVisualStyleBackColor = true;
       this.buttonDownloadSelectedItems.Click += new System.EventHandler(this.buttonDownloadSelectedItems_Click);
       // 
+      // buttonDownloadAlleBooks
+      // 
+      this.buttonDownloadAlleBooks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonDownloadAlleBooks.Location = new System.Drawing.Point(907, 293);
+      this.buttonDownloadAlleBooks.Name = "buttonDownloadAlleBooks";
+      this.buttonDownloadAlleBooks.Size = new System.Drawing.Size(178, 28);
+      this.buttonDownloadAlleBooks.TabIndex = 22;
+      this.buttonDownloadAlleBooks.Text = "Get all ebooks";
+      this.buttonDownloadAlleBooks.UseVisualStyleBackColor = true;
+      this.buttonDownloadAlleBooks.Click += new System.EventHandler(this.buttonDownloadAlleBooks_Click);
+      // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1110, 534);
+      this.Controls.Add(this.buttonDownloadAlleBooks);
       this.Controls.Add(this.buttonDownloadSelectedItems);
       this.Controls.Add(this.labelSelectListViewItems);
       this.Controls.Add(this.buttonClearLogTextBox);
@@ -508,5 +522,6 @@
     private System.Windows.Forms.Button buttonClearLogTextBox;
     private System.Windows.Forms.Label labelSelectListViewItems;
     private System.Windows.Forms.Button buttonDownloadSelectedItems;
+    private System.Windows.Forms.Button buttonDownloadAlleBooks;
   }
 }

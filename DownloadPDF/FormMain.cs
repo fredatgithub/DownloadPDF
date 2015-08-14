@@ -590,20 +590,19 @@ namespace DownloadPDF
       }
 
       Logger.Add(textBoxLog, Translate("Connecting to the url to get PDF files"));
-      //WebRequest wr = WebRequest.CreateHttp(new Uri(textBoxUrl.Text));
       HttpWebRequest request = WebRequest.Create(textBoxUrl.Text) as HttpWebRequest;
-      request.Method = "GET"; //Get only the "HEAD" header information -- no need to download any content
-
+      request.Method = "GET";
       HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-
       int statusCode = (int)response.StatusCode;
       if (statusCode >= 100 && statusCode < 400) //Good requests
       {
         // parse response for some div
+        Logger.Add(textBoxLog, "web response ok");
       }
       else
       {
         // bad request display error and quit
+        Logger.Add(textBoxLog, "web response not ok - an error occured");
         return;
       }
 
@@ -614,18 +613,29 @@ namespace DownloadPDF
       doc.LoadHtml(queryContent);
       HtmlNode bodyNode = doc.DocumentNode.SelectSingleNode("//body | //BODY");
       List<string> downloadList = new List<string>();
+      var links = doc.DocumentNode.Descendants("a");
+      foreach (var link in links)
+      {
+        downloadList.Add(link.InnerText);
+        var href = link.Attributes["href"];
+        if (href != null)
+        {
+          downloadList.Add(href.Value);
+        }
+      }
+      downloadList = new List<string>();
       foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
       {
         downloadList.Add(link.InnerText);
       }
-      // doc.Save("file.html");
+      // TODO to be debug
 
       listViewPdfFiles.Items.Clear();
 
       listViewPdfFiles.Columns.Add("To be updated", 240, HorizontalAlignment.Left);
       listViewPdfFiles.Columns.Add("PDF Name", 240, HorizontalAlignment.Left);
       listViewPdfFiles.Columns.Add("File Format", 240, HorizontalAlignment.Left);
-      listViewPdfFiles.Columns.Add("Description", 640, HorizontalAlignment.Left);
+      listViewPdfFiles.Columns.Add("URL", 640, HorizontalAlignment.Left);
 
       listViewPdfFiles.View = View.Details;
       listViewPdfFiles.LabelEdit = false;
@@ -635,7 +645,6 @@ namespace DownloadPDF
       listViewPdfFiles.GridLines = true;
       listViewPdfFiles.Sorting = SortOrder.None;
       int PdfFileCount = 0;
-      // foreach files in url
       string tmpPdfFileName = "";
       string tmpPdfFiledescription = "";
       List<string> listOfPdfFiles = new List<string>();
@@ -793,7 +802,157 @@ namespace DownloadPDF
 
     private void buttonDownloadSelectedItems_Click(object sender, EventArgs e)
     {
+      foreach (ListViewItem row in listViewPdfFiles.CheckedItems)
+      {
+        MessageBox.Show(row.SubItems[3].ToString());
+        MessageBox.Show(row.SubItems[1].ToString().Trim().Replace(' ', '_') + "." +
+          row.SubItems[2].ToString().ToLower());
 
+        if (GetWebClientBinaries(row.SubItems[3].ToString(), 
+          row.SubItems[1].ToString().Trim().Replace(' ', '_') + "." +
+          row.SubItems[2].ToString().ToLower()))
+        {
+          Logger.Add(textBoxLog, "Download ok for ebook: ");
+          Logger.Add(textBoxLog, "Name for ebook: " +
+            row.SubItems[1].ToString().Trim().Replace(' ', '_'));
+          Logger.Add(textBoxLog, "file extension: " +
+            row.SubItems[2].ToString().ToLower());
+        }
+        else
+        {
+          Logger.Add(textBoxLog, "Download not ok for ebook: ");
+          Logger.Add(textBoxLog, "Name for ebook: " +
+            row.SubItems[1].ToString().Trim().Replace(' ', '_'));
+          Logger.Add(textBoxLog, "file extension: " +
+            row.SubItems[2].ToString().ToLower());
+        }
+        
+      }
+    }
+
+    private void buttonDownloadAlleBooks_Click(object sender, EventArgs e)
+    {
+      HttpWebRequest request = WebRequest.Create(textBoxUrl.Text) as HttpWebRequest;
+      request.Method = "GET";
+      HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+      int statusCode = (int)response.StatusCode;
+      if (statusCode >= 100 && statusCode < 400) //Good requests
+      {
+        // parse response for some div
+        Logger.Add(textBoxLog, "web response ok");
+      }
+      else
+      {
+        // bad request display error and quit
+        Logger.Add(textBoxLog, "web response not ok, error");
+        return;
+      }
+
+      StreamReader responseStream = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+
+      string queryContent = responseStream.ReadToEnd();
+      HtmlDocument doc = new HtmlDocument();
+      doc.LoadHtml(queryContent);
+      List<string> downloadList = new List<string>();
+      Tuple<string, string, string> ebook = new Tuple<string, string, string>("Name", "url", "File_Format");
+      List<Tuple<string, string, string>> ebooks = new List<Tuple<string, string, string>>();
+      var links = doc.DocumentNode.Descendants("a");
+      foreach (var link in links)
+      {
+        downloadList.Add(link.InnerText);
+        string name = link.InnerText;
+        string url = "";
+        string fileFormat = "";
+        var href = link.Attributes["href"];
+        if (href != null)
+        {
+          downloadList.Add(href.Value);
+          url = href.Value;
+        }
+        var font = link.Attributes["font"];
+        if (font != null)
+        {
+          fileFormat = font.ToString();
+        }
+
+        Tuple<string, string, string> ebook1 = new Tuple<string, string, string>(
+            name, fileFormat, url);
+        ebooks.Add(ebook1);
+      }
+      // removing bad entries
+      List<Tuple<string, string, string>> ebooksOK = new List<Tuple<string, string, string>>();
+      List<Tuple<string, string, string>> ebooksNOK = new List<Tuple<string, string, string>>();
+      foreach (Tuple<string, string, string> t in ebooks)
+      {
+        if (t.Item1 == "ZIP" || t.Item1 == "EPUB" || t.Item1 == "MOBI" || t.Item1 == "PDF" || t.Item1 == "DOC" || t.Item1 == "XPS" || t.Item1 == "DOCX" || t.Item1 == "PPTX")
+        {
+          ebooksOK.Add(t);
+        }
+        else if (t.Item3.StartsWith("http://ligman.me/"))
+        {
+          ebooksOK.Add(t);
+        }
+        else
+        {
+          ebooksNOK.Add(t);
+        }
+
+      }
+      ebooksNOK = null;
+      ebooks = null;
+      List<Tuple<string, string, string>> ebooksNoFileFormat = new List<Tuple<string, string, string>>();
+      List<Tuple<string, string, string>> ebooksFileFormatOK = new List<Tuple<string, string, string>>();
+      foreach (Tuple<string, string, string> t in ebooksOK)
+      {
+        if (t.Item1 == "")
+        {
+          ebooksNoFileFormat.Add(t);
+        }
+        else
+        {
+          ebooksFileFormatOK.Add(t);
+        }
+      }
+      ebooksOK = null;
+      List<Tuple<string, string, string>> ebooksWellformatted = new List<Tuple<string, string, string>>();
+      int bookNb = 1;
+      foreach (Tuple<string, string, string> t in ebooksFileFormatOK)
+      {
+        if (t.Item1 == "ZIP" || t.Item1 == "EPUB" || t.Item1 == "MOBI" || t.Item1 == "PDF" || t.Item1 == "DOC" || t.Item1 == "XPS" || t.Item1 == "DOCX" || t.Item1 == "PPTX")
+        {
+          ebooksWellformatted.Add(Tuple.Create("ebook" + bookNb, t.Item1, t.Item3.Trim()));
+          bookNb++;
+        }
+        else
+        {
+          ebooksWellformatted.Add(Tuple.Create(t.Item1, "UnknownFileFormat", t.Item3.Trim()));
+        }
+      }
+      ebooksFileFormatOK = null;
+      listViewPdfFiles.Items.Clear();
+      listViewPdfFiles.Columns.Add("Update", 65, HorizontalAlignment.Left);
+      listViewPdfFiles.Columns.Add("Book Name", 240, HorizontalAlignment.Left);
+      listViewPdfFiles.Columns.Add("File Format", 240, HorizontalAlignment.Left);
+      listViewPdfFiles.Columns.Add("URL", 640, HorizontalAlignment.Left);
+
+      listViewPdfFiles.View = View.Details;
+      listViewPdfFiles.LabelEdit = false;
+      listViewPdfFiles.AllowColumnReorder = true;
+      listViewPdfFiles.CheckBoxes = true;
+      listViewPdfFiles.FullRowSelect = true;
+      listViewPdfFiles.GridLines = true;
+      listViewPdfFiles.Sorting = SortOrder.None;
+      foreach (Tuple<string, string, string> t in ebooksWellformatted)
+      {
+        ListViewItem item1 = new ListViewItem("") { Checked = false };
+        item1.SubItems.Add(t.Item1);
+        item1.SubItems.Add(t.Item2);
+        item1.SubItems.Add(t.Item3);
+        listViewPdfFiles.Items.Add(item1);
+      }
+
+      buttonDownloadSelectedItems.Enabled = true;
+      Logger.Add(textBoxLog, "search is over, please check ebooks you want to download");
     }
   }
 }
