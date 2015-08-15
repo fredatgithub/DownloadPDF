@@ -804,30 +804,26 @@ namespace DownloadPDF
     {
       foreach (ListViewItem row in listViewPdfFiles.CheckedItems)
       {
-        MessageBox.Show(row.SubItems[3].ToString());
-        MessageBox.Show(row.SubItems[1].ToString().Trim().Replace(' ', '_') + "." +
-          row.SubItems[2].ToString().ToLower());
+        string url = RemoveJson(row.SubItems[3].ToString());
+        string bookName = RemoveJson(row.SubItems[1].ToString()) + "." + RemoveJson(row.SubItems[2].ToString());
 
-        if (GetWebClientBinaries(row.SubItems[3].ToString(), 
-          row.SubItems[1].ToString().Trim().Replace(' ', '_') + "." +
-          row.SubItems[2].ToString().ToLower()))
+        if (GetWebClientBinaries(url, bookName)) 
         {
           Logger.Add(textBoxLog, "Download ok for ebook: ");
-          Logger.Add(textBoxLog, "Name for ebook: " +
-            row.SubItems[1].ToString().Trim().Replace(' ', '_'));
-          Logger.Add(textBoxLog, "file extension: " +
-            row.SubItems[2].ToString().ToLower());
+          Logger.Add(textBoxLog, "Name for ebook: " + bookName);
         }
         else
         {
           Logger.Add(textBoxLog, "Download not ok for ebook: ");
-          Logger.Add(textBoxLog, "Name for ebook: " +
-            row.SubItems[1].ToString().Trim().Replace(' ', '_'));
-          Logger.Add(textBoxLog, "file extension: " +
-            row.SubItems[2].ToString().ToLower());
+          Logger.Add(textBoxLog, "Name for ebook: " + bookName);
+          Logger.Add(textBoxLog, "ebook url: " + url);
         }
-        
       }
+    }
+
+    private static string RemoveJson(string myString)
+    {
+      return myString.Replace("ListViewSubItem:", "").Replace("{", "").Replace("}", "").Trim();
     }
 
     private void buttonDownloadAlleBooks_Click(object sender, EventArgs e)
@@ -930,7 +926,7 @@ namespace DownloadPDF
       }
       ebooksFileFormatOK = null;
       listViewPdfFiles.Items.Clear();
-      listViewPdfFiles.Columns.Add("Update", 65, HorizontalAlignment.Left);
+      listViewPdfFiles.Columns.Add("Download", 65, HorizontalAlignment.Left);
       listViewPdfFiles.Columns.Add("Book Name", 240, HorizontalAlignment.Left);
       listViewPdfFiles.Columns.Add("File Format", 240, HorizontalAlignment.Left);
       listViewPdfFiles.Columns.Add("URL", 640, HorizontalAlignment.Left);
