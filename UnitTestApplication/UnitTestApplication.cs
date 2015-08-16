@@ -36,5 +36,37 @@ namespace UnitTestApplication
       Assert.AreEqual(result, expected);
     }
     #endregion InvertModifier
+
+    #region IsInList
+    [TestMethod]
+    public void TestMethod_IsInList_true_lowercase()
+    {
+      const string source1 = "zip";
+      string[] source2 = {"ZIP", "EPUB", "MOBI", "PDF", "DOC", "XPS", "DOCX", "PPTX"};
+      const bool expected = true;
+      bool result = FormMain.IsInList(source1, source2);
+      Assert.AreEqual(result, expected);
+    }
+
+    [TestMethod]
+    public void TestMethod_IsInList_true_uppercase()
+    {
+      const string source1 = "ZIP";
+      string[] source2 = { "ZIP", "EPUB", "MOBI", "PDF", "DOC", "XPS", "DOCX", "PPTX" };
+      const bool expected = true;
+      bool result = FormMain.IsInList(source1, source2);
+      Assert.AreEqual(result, expected);
+    }
+
+    [TestMethod]
+    public void TestMethod_IsInList_false()
+    {
+      const string source1 = "zipper";
+      string[] source2 = { "ZIP", "EPUB", "MOBI", "PDF", "DOC", "XPS", "DOCX", "PPTX" };
+      const bool expected = false;
+      bool result = FormMain.IsInList(source1, source2);
+      Assert.AreEqual(result, expected);
+    }
+    #endregion IsInList
   }
 }

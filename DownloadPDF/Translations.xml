@@ -266,36 +266,36 @@
       <englishValue>search is over, please check ebooks you want to download</englishValue>
       <frenchValue>Recherche terminée, veuillez cocher les fichiers désirés</frenchValue>
     </term>
-    <!--<term>
-      <name></name>
-      <englishValue></englishValue>
-      <frenchValue></frenchValue>
-    </term>-->
-    <!--<term>
-      <name></name>
-      <englishValue></englishValue>
-      <frenchValue></frenchValue>
-    </term>-->
-    <!--<term>
-      <name></name>
-      <englishValue></englishValue>
-      <frenchValue></frenchValue>
-    </term>-->
-    <!--<term>
-      <name></name>
-      <englishValue></englishValue>
-      <frenchValue></frenchValue>
-    </term>-->
-    <!--<term>
-      <name></name>
-      <englishValue></englishValue>
-      <frenchValue></frenchValue>
-    </term>-->
-    <!--<term>
-      <name></name>
-      <englishValue></englishValue>
-      <frenchValue></frenchValue>
-    </term>-->
+    <term>
+      <name>Download ok for ebook</name>
+      <englishValue>Download ok for ebook</englishValue>
+      <frenchValue>Téléchargement fini pour l'ebook</frenchValue>
+    </term>
+    <term>
+      <name>Name for ebook</name>
+      <englishValue>Name for ebook</englishValue>
+      <frenchValue>Nom de l'ebook</frenchValue>
+    </term>
+    <term>
+      <name>Download not ok for ebook</name>
+      <englishValue>Download not ok for ebook</englishValue>
+      <frenchValue>Téléchargement en erreur pour l'ebook</frenchValue>
+    </term>
+    <term>
+      <name>ebook url</name>
+      <englishValue>ebook url</englishValue>
+      <frenchValue>url de l'ebook</frenchValue>
+    </term>
+    <term>
+      <name>Download process is over</name>
+      <englishValue>Download process is over</englishValue>
+      <frenchValue>Le téléchargement est terminé</frenchValue>
+    </term>
+    <term>
+      <name>Download over</name>
+      <englishValue>Download over</englishValue>
+      <frenchValue>Téléchargement terminé</frenchValue>
+    </term>
     <!--<term>
       <name></name>
       <englishValue></englishValue>

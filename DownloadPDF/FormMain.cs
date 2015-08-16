@@ -816,22 +816,23 @@ namespace DownloadPDF
     {
       foreach (ListViewItem row in listViewPdfFiles.CheckedItems)
       {
-        MessageBox.Show(row.SubItems[3].Text);
         string url = row.SubItems[3].Text;
         string bookName = row.SubItems[1].Text + "." + row.SubItems[2].Text;
 
         if (GetWebClientBinaries(url, bookName))
         {
-          Logger.Add(textBoxLog, "Download ok for ebook: ");
-          Logger.Add(textBoxLog, "Name for ebook: " + bookName);
+          Logger.Add(textBoxLog, Translate("Download ok for ebook") + Punctuation.Colon + Punctuation.OneSpace);
+          Logger.Add(textBoxLog, Translate("Name for ebook") + Punctuation.Colon + Punctuation.OneSpace + bookName);
         }
         else
         {
-          Logger.Add(textBoxLog, "Download not ok for ebook: ");
-          Logger.Add(textBoxLog, "Name for ebook: " + bookName);
-          Logger.Add(textBoxLog, "ebook url: " + url);
+          Logger.Add(textBoxLog, Translate("Download not ok for ebook") + Punctuation.Colon + Punctuation.OneSpace);
+          Logger.Add(textBoxLog, Translate("Name for ebook") + Punctuation.Colon + Punctuation.OneSpace + bookName);
+          Logger.Add(textBoxLog, Translate("ebook url") + Punctuation.Colon + Punctuation.OneSpace + url);
         }
       }
+
+      DisplayMessage(Translate("Download process is over"), Translate("Download over"), MessageBoxButtons.OK);
     }
 
     private void buttonDownloadAlleBooks_Click(object sender, EventArgs e)
@@ -888,7 +889,7 @@ namespace DownloadPDF
       var ebooksNOK = new List<Tuple<string, string, string>>();
       foreach (Tuple<string, string, string> t in ebooks)
       {
-        if (t.Item1 == "ZIP" || t.Item1 == "EPUB" || t.Item1 == "MOBI" || t.Item1 == "PDF" || t.Item1 == "DOC" || t.Item1 == "XPS" || t.Item1 == "DOCX" || t.Item1 == "PPTX")
+        if (IsInList(t.Item1, new[] { "ZIP", "EPUB", "MOBI", "PDF", "DOC", "XPS", "DOCX", "PPTX" }))
         {
           ebooksOK.Add(t);
         }
@@ -924,7 +925,7 @@ namespace DownloadPDF
       int bookNb = 1;
       foreach (Tuple<string, string, string> t in ebooksFileFormatOK)
       {
-        if (t.Item1 == "ZIP" || t.Item1 == "EPUB" || t.Item1 == "MOBI" || t.Item1 == "PDF" || t.Item1 == "DOC" || t.Item1 == "XPS" || t.Item1 == "DOCX" || t.Item1 == "PPTX")
+        if (IsInList(t.Item1, new [] {"ZIP", "EPUB", "MOBI", "PDF", "DOC", "XPS", "DOCX", "PPTX"}))
         {
           ebooksWellformatted.Add(Tuple.Create("ebook" + bookNb, t.Item1, t.Item3.Trim()));
           bookNb++;
@@ -961,6 +962,22 @@ namespace DownloadPDF
       EnableToggleButtons();
       buttonDownloadSelectedItems.Enabled = true;
       Logger.Add(textBoxLog, Translate("search is over, please check ebooks you want to download"));
+    }
+
+    public static bool IsInList(string word, string [] listOfWords)
+    {
+      bool result = false;
+      // LINQ return listOfWords.Any(wordInList => string.Compare(word, wordInList, StringComparison.InvariantCultureIgnoreCase) == 0);
+      foreach (string wordInList in listOfWords)
+      {
+        if (string.Compare(word, wordInList, StringComparison.InvariantCultureIgnoreCase) == 0)
+        {
+          result = true;
+          break;
+        }
+      }
+
+      return result;
     }
 
     private void EnableToggleButtons()
@@ -1016,7 +1033,7 @@ namespace DownloadPDF
       {
         foreach (ListViewItem row in listViewPdfFiles.Items)
         {
-            row.Checked = false;
+          row.Checked = false;
         }
       }
     }
