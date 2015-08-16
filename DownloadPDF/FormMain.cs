@@ -434,9 +434,10 @@ namespace DownloadPDF
     private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
     {
       Control focusedControl = FindFocusedControl(new List<Control> { textBoxUrl });
-      if (focusedControl is TextBox)
+      TextBox control = focusedControl as TextBox;
+      if (control != null)
       {
-        ((TextBox)focusedControl).SelectAll();
+        control.SelectAll();
       }
     }
 
