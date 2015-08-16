@@ -165,11 +165,6 @@
       <frenchValue>Effacer le log</frenchValue>
     </term>
     <term>
-      <name>Select-Unselect All</name>
-      <englishValue>Select-Unselect All</englishValue>
-      <frenchValue>Intervertir la sélection</frenchValue>
-    </term>
-    <term>
       <name>Select the PDF files you want to download</name>
       <englishValue>Select the PDF files you want to download</englishValue>
       <frenchValue>Sélectionner les fichiers PDF à télécharger</frenchValue>
@@ -224,6 +219,88 @@
       <englishValue>Get Titles</englishValue>
       <frenchValue>Obtenir les titres</frenchValue>
     </term>
+    <term>
+      <name>List all ebooks</name>
+      <englishValue>List all ebooks</englishValue>
+      <frenchValue>Liste tous les ebooks</frenchValue>
+    </term>
+    <term>
+      <name>Select-Unselect All</name>
+      <englishValue>Select-Unselect All</englishValue>
+      <frenchValue>Intervertir la sélection</frenchValue>
+    </term>
+    <term>
+      <name>Unselect All</name>
+      <englishValue>Unselect All</englishValue>
+      <frenchValue>Tout désélectionner</frenchValue>
+    </term>
+    <term>
+      <name>Select-Unselect PDF</name>
+      <englishValue>Select-Unselect PDF</englishValue>
+      <frenchValue>Intervertir les PDF</frenchValue>
+    </term>
+    
+    <term>
+      <name>Select-Unselect EPUB</name>
+      <englishValue>Select-Unselect EPUB</englishValue>
+      <frenchValue>Intervertir les EPUB</frenchValue>
+    </term>
+    
+    <term>
+      <name>Select-Unselect MOBI</name>
+      <englishValue>Select-Unselect MOBI</englishValue>
+      <frenchValue>Intervertir les MOBI</frenchValue>
+    </term>
+    <term>
+      <name>web response ok</name>
+      <englishValue>web response ok</englishValue>
+      <frenchValue>Réponse web ok</frenchValue>
+    </term>
+    <term>
+      <name>web response not ok, error</name>
+      <englishValue>web response not ok, error</englishValue>
+      <frenchValue>Réponse web ko, erreur</frenchValue>
+    </term>
+    <term>
+      <name>search is over, please check ebooks you want to download</name>
+      <englishValue>search is over, please check ebooks you want to download</englishValue>
+      <frenchValue>Recherche terminée, veuillez cocher les fichiers désirés</frenchValue>
+    </term>
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
     <!--<term>
       <name></name>
       <englishValue></englishValue>

@@ -332,10 +332,17 @@ namespace DownloadPDF
           searchToolStripMenuItem.Text = _languageDicoEn["MenuHelpSearch"];
           aboutToolStripMenuItem.Text = _languageDicoEn["MenuHelpAbout"];
           buttonClearLogTextBox.Text = _languageDicoEn["Clear Log"];
-          buttonSelectUnselect.Text = _languageDicoEn["Select-Unselect All"];
+          buttonSelectUnselectAll.Text = _languageDicoEn["Select-Unselect All"];
           labelSelectListViewItems.Text = _languageDicoEn["Select the PDF files you want to download"];
           buttonGetPdfFileList.Text = _languageDicoEn["Get Titles"];
           buttonDownloadSelectedItems.Text = _languageDicoEn["Download"];
+
+          buttonDownloadAlleBooks.Text = _languageDicoEn["List all ebooks"];
+          buttonClearAllItems.Text = _languageDicoEn["Unselect All"];
+          buttonTogglePdf.Text = _languageDicoEn["Select-Unselect PDF"];
+          buttonToggleEpub.Text = _languageDicoEn["Select-Unselect EPUB"];
+          buttonToggleMobi.Text = _languageDicoEn["Select-Unselect MOBI"];
+
           _currentLanguage = "English";
           break;
         case "French":
@@ -368,10 +375,15 @@ namespace DownloadPDF
           searchToolStripMenuItem.Text = _languageDicoFr["MenuHelpSearch"];
           aboutToolStripMenuItem.Text = _languageDicoFr["MenuHelpAbout"];
           buttonClearLogTextBox.Text = _languageDicoFr["Clear Log"];
-          buttonSelectUnselect.Text = _languageDicoFr["Select-Unselect All"];
+          buttonSelectUnselectAll.Text = _languageDicoFr["Select-Unselect All"];
           labelSelectListViewItems.Text = _languageDicoFr["Select the PDF files you want to download"];
           buttonGetPdfFileList.Text = _languageDicoFr["Get Titles"];
           buttonDownloadSelectedItems.Text = _languageDicoFr["Download"];
+          buttonDownloadAlleBooks.Text = _languageDicoFr["List all ebooks"];
+          buttonClearAllItems.Text = _languageDicoFr["Unselect All"];
+          buttonTogglePdf.Text = _languageDicoFr["Select-Unselect PDF"];
+          buttonToggleEpub.Text = _languageDicoFr["Select-Unselect EPUB"];
+          buttonToggleMobi.Text = _languageDicoFr["Select-Unselect MOBI"];
           _currentLanguage = "French";
           break;
       }
@@ -804,10 +816,11 @@ namespace DownloadPDF
     {
       foreach (ListViewItem row in listViewPdfFiles.CheckedItems)
       {
-        string url = RemoveJson(row.SubItems[3].ToString());
-        string bookName = RemoveJson(row.SubItems[1].ToString()) + "." + RemoveJson(row.SubItems[2].ToString());
+        MessageBox.Show(row.SubItems[3].Text);
+        string url = row.SubItems[3].Text;
+        string bookName = row.SubItems[1].Text + "." + row.SubItems[2].Text;
 
-        if (GetWebClientBinaries(url, bookName)) 
+        if (GetWebClientBinaries(url, bookName))
         {
           Logger.Add(textBoxLog, "Download ok for ebook: ");
           Logger.Add(textBoxLog, "Name for ebook: " + bookName);
@@ -821,11 +834,6 @@ namespace DownloadPDF
       }
     }
 
-    private static string RemoveJson(string myString)
-    {
-      return myString.Replace("ListViewSubItem:", "").Replace("{", "").Replace("}", "").Trim();
-    }
-
     private void buttonDownloadAlleBooks_Click(object sender, EventArgs e)
     {
       HttpWebRequest request = WebRequest.Create(textBoxUrl.Text) as HttpWebRequest;
@@ -835,12 +843,12 @@ namespace DownloadPDF
       if (statusCode >= 100 && statusCode < 400) //Good requests
       {
         // parse response for some div
-        Logger.Add(textBoxLog, "web response ok");
+        Logger.Add(textBoxLog, Translate("web response ok"));
       }
       else
       {
         // bad request display error and quit
-        Logger.Add(textBoxLog, "web response not ok, error");
+        Logger.Add(textBoxLog, Translate("web response not ok, error"));
         return;
       }
 
@@ -849,9 +857,9 @@ namespace DownloadPDF
       string queryContent = responseStream.ReadToEnd();
       HtmlDocument doc = new HtmlDocument();
       doc.LoadHtml(queryContent);
-      List<string> downloadList = new List<string>();
-      Tuple<string, string, string> ebook = new Tuple<string, string, string>("Name", "url", "File_Format");
-      List<Tuple<string, string, string>> ebooks = new List<Tuple<string, string, string>>();
+      var downloadList = new List<string>();
+      new Tuple<string, string, string>("Name", "url", "File_Format");
+      var ebooks = new List<Tuple<string, string, string>>();
       var links = doc.DocumentNode.Descendants("a");
       foreach (var link in links)
       {
@@ -871,13 +879,13 @@ namespace DownloadPDF
           fileFormat = font.ToString();
         }
 
-        Tuple<string, string, string> ebook1 = new Tuple<string, string, string>(
-            name, fileFormat, url);
+        var ebook1 = new Tuple<string, string, string>(name, fileFormat, url);
         ebooks.Add(ebook1);
       }
+
       // removing bad entries
-      List<Tuple<string, string, string>> ebooksOK = new List<Tuple<string, string, string>>();
-      List<Tuple<string, string, string>> ebooksNOK = new List<Tuple<string, string, string>>();
+      var ebooksOK = new List<Tuple<string, string, string>>();
+      var ebooksNOK = new List<Tuple<string, string, string>>();
       foreach (Tuple<string, string, string> t in ebooks)
       {
         if (t.Item1 == "ZIP" || t.Item1 == "EPUB" || t.Item1 == "MOBI" || t.Item1 == "PDF" || t.Item1 == "DOC" || t.Item1 == "XPS" || t.Item1 == "DOCX" || t.Item1 == "PPTX")
@@ -894,10 +902,11 @@ namespace DownloadPDF
         }
 
       }
+
       ebooksNOK = null;
       ebooks = null;
-      List<Tuple<string, string, string>> ebooksNoFileFormat = new List<Tuple<string, string, string>>();
-      List<Tuple<string, string, string>> ebooksFileFormatOK = new List<Tuple<string, string, string>>();
+      var ebooksNoFileFormat = new List<Tuple<string, string, string>>();
+      var ebooksFileFormatOK = new List<Tuple<string, string, string>>();
       foreach (Tuple<string, string, string> t in ebooksOK)
       {
         if (t.Item1 == "")
@@ -909,8 +918,9 @@ namespace DownloadPDF
           ebooksFileFormatOK.Add(t);
         }
       }
+
       ebooksOK = null;
-      List<Tuple<string, string, string>> ebooksWellformatted = new List<Tuple<string, string, string>>();
+      var ebooksWellformatted = new List<Tuple<string, string, string>>();
       int bookNb = 1;
       foreach (Tuple<string, string, string> t in ebooksFileFormatOK)
       {
@@ -924,6 +934,7 @@ namespace DownloadPDF
           ebooksWellformatted.Add(Tuple.Create(t.Item1, "UnknownFileFormat", t.Item3.Trim()));
         }
       }
+
       ebooksFileFormatOK = null;
       listViewPdfFiles.Items.Clear();
       listViewPdfFiles.Columns.Add("Download", 65, HorizontalAlignment.Left);
@@ -947,8 +958,67 @@ namespace DownloadPDF
         listViewPdfFiles.Items.Add(item1);
       }
 
+      EnableToggleButtons();
       buttonDownloadSelectedItems.Enabled = true;
-      Logger.Add(textBoxLog, "search is over, please check ebooks you want to download");
+      Logger.Add(textBoxLog, Translate("search is over, please check ebooks you want to download"));
+    }
+
+    private void EnableToggleButtons()
+    {
+      buttonToggleEpub.Enabled = true;
+      buttonToggleMobi.Enabled = true;
+      buttonTogglePdf.Enabled = true;
+      buttonSelectUnselectAll.Enabled = true;
+      buttonClearAllItems.Enabled = true;
+    }
+
+    private void buttonTogglePdf_Click(object sender, EventArgs e)
+    {
+      if (listViewPdfFiles.Items.Count != 0)
+      {
+        ToggleAllItems(listViewPdfFiles, "pdf");
+      }
+    }
+
+    private void buttonToggleEpub_Click(object sender, EventArgs e)
+    {
+      if (listViewPdfFiles.Items.Count != 0)
+      {
+        ToggleAllItems(listViewPdfFiles, "epub");
+      }
+    }
+
+    private void buttonToggleMobi_Click(object sender, EventArgs e)
+    {
+      if (listViewPdfFiles.Items.Count != 0)
+      {
+        ToggleAllItems(listViewPdfFiles, "mobi");
+      }
+    }
+
+    private static void ToggleAllItems(ListView lvw, string fileFormat)
+    {
+      if (lvw.Items.Count != 0)
+      {
+        foreach (ListViewItem row in lvw.Items)
+        {
+          if (string.Equals(row.SubItems[2].Text, fileFormat, StringComparison.CurrentCultureIgnoreCase))
+          {
+            row.Checked = !row.Checked;
+          }
+        }
+      }
+    }
+
+    private void buttonClearAllItems_Click(object sender, EventArgs e)
+    {
+      if (listViewPdfFiles.Items.Count != 0)
+      {
+        foreach (ListViewItem row in listViewPdfFiles.Items)
+        {
+            row.Checked = false;
+        }
+      }
     }
   }
 }

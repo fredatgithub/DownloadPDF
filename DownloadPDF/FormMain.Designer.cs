@@ -66,12 +66,16 @@
       this.textBoxUrl = new System.Windows.Forms.TextBox();
       this.buttonGetPdfFileList = new System.Windows.Forms.Button();
       this.listViewPdfFiles = new System.Windows.Forms.ListView();
-      this.buttonSelectUnselect = new System.Windows.Forms.Button();
+      this.buttonSelectUnselectAll = new System.Windows.Forms.Button();
       this.textBoxLog = new System.Windows.Forms.TextBox();
       this.buttonClearLogTextBox = new System.Windows.Forms.Button();
       this.labelSelectListViewItems = new System.Windows.Forms.Label();
       this.buttonDownloadSelectedItems = new System.Windows.Forms.Button();
       this.buttonDownloadAlleBooks = new System.Windows.Forms.Button();
+      this.buttonTogglePdf = new System.Windows.Forms.Button();
+      this.buttonToggleEpub = new System.Windows.Forms.Button();
+      this.buttonToggleMobi = new System.Windows.Forms.Button();
+      this.buttonClearAllItems = new System.Windows.Forms.Button();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -87,7 +91,7 @@
       this.menuStrip1.Location = new System.Drawing.Point(0, 0);
       this.menuStrip1.Name = "menuStrip1";
       this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-      this.menuStrip1.Size = new System.Drawing.Size(927, 24);
+      this.menuStrip1.Size = new System.Drawing.Size(1010, 24);
       this.menuStrip1.TabIndex = 1;
       this.menuStrip1.Text = "menuStrip1";
       // 
@@ -351,9 +355,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.textBoxUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.textBoxUrl.Location = new System.Drawing.Point(56, 44);
-      this.textBoxUrl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.textBoxUrl.Margin = new System.Windows.Forms.Padding(2);
       this.textBoxUrl.Name = "textBoxUrl";
-      this.textBoxUrl.Size = new System.Drawing.Size(854, 23);
+      this.textBoxUrl.Size = new System.Drawing.Size(937, 23);
       this.textBoxUrl.TabIndex = 3;
       this.textBoxUrl.Text = resources.GetString("textBoxUrl.Text");
       // 
@@ -361,10 +365,10 @@
       // 
       this.buttonGetPdfFileList.Enabled = false;
       this.buttonGetPdfFileList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.buttonGetPdfFileList.Location = new System.Drawing.Point(484, 238);
-      this.buttonGetPdfFileList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.buttonGetPdfFileList.Location = new System.Drawing.Point(340, 238);
+      this.buttonGetPdfFileList.Margin = new System.Windows.Forms.Padding(2);
       this.buttonGetPdfFileList.Name = "buttonGetPdfFileList";
-      this.buttonGetPdfFileList.Size = new System.Drawing.Size(116, 23);
+      this.buttonGetPdfFileList.Size = new System.Drawing.Size(138, 25);
       this.buttonGetPdfFileList.TabIndex = 4;
       this.buttonGetPdfFileList.Text = "Get Titles";
       this.buttonGetPdfFileList.UseVisualStyleBackColor = true;
@@ -375,24 +379,25 @@
       this.listViewPdfFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.listViewPdfFiles.Location = new System.Drawing.Point(19, 271);
-      this.listViewPdfFiles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.listViewPdfFiles.Location = new System.Drawing.Point(19, 298);
+      this.listViewPdfFiles.Margin = new System.Windows.Forms.Padding(2);
       this.listViewPdfFiles.Name = "listViewPdfFiles";
-      this.listViewPdfFiles.Size = new System.Drawing.Size(891, 145);
+      this.listViewPdfFiles.Size = new System.Drawing.Size(974, 349);
       this.listViewPdfFiles.TabIndex = 5;
       this.listViewPdfFiles.UseCompatibleStateImageBehavior = false;
       // 
-      // buttonSelectUnselect
+      // buttonSelectUnselectAll
       // 
-      this.buttonSelectUnselect.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.buttonSelectUnselect.Location = new System.Drawing.Point(19, 236);
-      this.buttonSelectUnselect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-      this.buttonSelectUnselect.Name = "buttonSelectUnselect";
-      this.buttonSelectUnselect.Size = new System.Drawing.Size(142, 23);
-      this.buttonSelectUnselect.TabIndex = 6;
-      this.buttonSelectUnselect.Text = "Select-Unselect All";
-      this.buttonSelectUnselect.UseVisualStyleBackColor = true;
-      this.buttonSelectUnselect.Click += new System.EventHandler(this.buttonSelectUnselect_Click);
+      this.buttonSelectUnselectAll.Enabled = false;
+      this.buttonSelectUnselectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonSelectUnselectAll.Location = new System.Drawing.Point(180, 269);
+      this.buttonSelectUnselectAll.Margin = new System.Windows.Forms.Padding(2);
+      this.buttonSelectUnselectAll.Name = "buttonSelectUnselectAll";
+      this.buttonSelectUnselectAll.Size = new System.Drawing.Size(170, 25);
+      this.buttonSelectUnselectAll.TabIndex = 6;
+      this.buttonSelectUnselectAll.Text = "Select-Unselect All";
+      this.buttonSelectUnselectAll.UseVisualStyleBackColor = true;
+      this.buttonSelectUnselectAll.Click += new System.EventHandler(this.buttonSelectUnselect_Click);
       // 
       // textBoxLog
       // 
@@ -400,11 +405,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.textBoxLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.textBoxLog.Location = new System.Drawing.Point(19, 118);
-      this.textBoxLog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.textBoxLog.Margin = new System.Windows.Forms.Padding(2);
       this.textBoxLog.Multiline = true;
       this.textBoxLog.Name = "textBoxLog";
       this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.textBoxLog.Size = new System.Drawing.Size(891, 108);
+      this.textBoxLog.Size = new System.Drawing.Size(974, 108);
       this.textBoxLog.TabIndex = 15;
       this.textBoxLog.Text = "Log";
       // 
@@ -412,9 +417,9 @@
       // 
       this.buttonClearLogTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.buttonClearLogTextBox.Location = new System.Drawing.Point(19, 80);
-      this.buttonClearLogTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.buttonClearLogTextBox.Margin = new System.Windows.Forms.Padding(2);
       this.buttonClearLogTextBox.Name = "buttonClearLogTextBox";
-      this.buttonClearLogTextBox.Size = new System.Drawing.Size(99, 26);
+      this.buttonClearLogTextBox.Size = new System.Drawing.Size(99, 25);
       this.buttonClearLogTextBox.TabIndex = 19;
       this.buttonClearLogTextBox.Text = "Clear Log";
       this.buttonClearLogTextBox.UseVisualStyleBackColor = true;
@@ -424,7 +429,7 @@
       // 
       this.labelSelectListViewItems.AutoSize = true;
       this.labelSelectListViewItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.labelSelectListViewItems.Location = new System.Drawing.Point(165, 238);
+      this.labelSelectListViewItems.Location = new System.Drawing.Point(21, 238);
       this.labelSelectListViewItems.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
       this.labelSelectListViewItems.Name = "labelSelectListViewItems";
       this.labelSelectListViewItems.Size = new System.Drawing.Size(306, 20);
@@ -435,10 +440,10 @@
       // 
       this.buttonDownloadSelectedItems.Enabled = false;
       this.buttonDownloadSelectedItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.buttonDownloadSelectedItems.Location = new System.Drawing.Point(612, 238);
-      this.buttonDownloadSelectedItems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.buttonDownloadSelectedItems.Location = new System.Drawing.Point(488, 238);
+      this.buttonDownloadSelectedItems.Margin = new System.Windows.Forms.Padding(2);
       this.buttonDownloadSelectedItems.Name = "buttonDownloadSelectedItems";
-      this.buttonDownloadSelectedItems.Size = new System.Drawing.Size(97, 23);
+      this.buttonDownloadSelectedItems.Size = new System.Drawing.Size(97, 25);
       this.buttonDownloadSelectedItems.TabIndex = 21;
       this.buttonDownloadSelectedItems.Text = "Download";
       this.buttonDownloadSelectedItems.UseVisualStyleBackColor = true;
@@ -447,33 +452,89 @@
       // buttonDownloadAlleBooks
       // 
       this.buttonDownloadAlleBooks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.buttonDownloadAlleBooks.Location = new System.Drawing.Point(725, 238);
-      this.buttonDownloadAlleBooks.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.buttonDownloadAlleBooks.Location = new System.Drawing.Point(592, 238);
+      this.buttonDownloadAlleBooks.Margin = new System.Windows.Forms.Padding(2);
       this.buttonDownloadAlleBooks.Name = "buttonDownloadAlleBooks";
-      this.buttonDownloadAlleBooks.Size = new System.Drawing.Size(134, 23);
+      this.buttonDownloadAlleBooks.Size = new System.Drawing.Size(154, 25);
       this.buttonDownloadAlleBooks.TabIndex = 22;
-      this.buttonDownloadAlleBooks.Text = "Get all ebooks";
+      this.buttonDownloadAlleBooks.Text = "List all ebooks";
       this.buttonDownloadAlleBooks.UseVisualStyleBackColor = true;
       this.buttonDownloadAlleBooks.Click += new System.EventHandler(this.buttonDownloadAlleBooks_Click);
+      // 
+      // buttonTogglePdf
+      // 
+      this.buttonTogglePdf.Enabled = false;
+      this.buttonTogglePdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonTogglePdf.Location = new System.Drawing.Point(368, 269);
+      this.buttonTogglePdf.Margin = new System.Windows.Forms.Padding(2);
+      this.buttonTogglePdf.Name = "buttonTogglePdf";
+      this.buttonTogglePdf.Size = new System.Drawing.Size(170, 25);
+      this.buttonTogglePdf.TabIndex = 23;
+      this.buttonTogglePdf.Text = "Select-Unselect PDF";
+      this.buttonTogglePdf.UseVisualStyleBackColor = true;
+      this.buttonTogglePdf.Click += new System.EventHandler(this.buttonTogglePdf_Click);
+      // 
+      // buttonToggleEpub
+      // 
+      this.buttonToggleEpub.Enabled = false;
+      this.buttonToggleEpub.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonToggleEpub.Location = new System.Drawing.Point(563, 269);
+      this.buttonToggleEpub.Margin = new System.Windows.Forms.Padding(2);
+      this.buttonToggleEpub.Name = "buttonToggleEpub";
+      this.buttonToggleEpub.Size = new System.Drawing.Size(170, 25);
+      this.buttonToggleEpub.TabIndex = 24;
+      this.buttonToggleEpub.Text = "Select-Unselect EPUB";
+      this.buttonToggleEpub.UseVisualStyleBackColor = true;
+      this.buttonToggleEpub.Click += new System.EventHandler(this.buttonToggleEpub_Click);
+      // 
+      // buttonToggleMobi
+      // 
+      this.buttonToggleMobi.Enabled = false;
+      this.buttonToggleMobi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonToggleMobi.Location = new System.Drawing.Point(742, 269);
+      this.buttonToggleMobi.Margin = new System.Windows.Forms.Padding(2);
+      this.buttonToggleMobi.Name = "buttonToggleMobi";
+      this.buttonToggleMobi.Size = new System.Drawing.Size(170, 25);
+      this.buttonToggleMobi.TabIndex = 25;
+      this.buttonToggleMobi.Text = "Select-Unselect MOBI";
+      this.buttonToggleMobi.UseVisualStyleBackColor = true;
+      this.buttonToggleMobi.Click += new System.EventHandler(this.buttonToggleMobi_Click);
+      // 
+      // buttonClearAllItems
+      // 
+      this.buttonClearAllItems.Enabled = false;
+      this.buttonClearAllItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonClearAllItems.Location = new System.Drawing.Point(19, 269);
+      this.buttonClearAllItems.Margin = new System.Windows.Forms.Padding(2);
+      this.buttonClearAllItems.Name = "buttonClearAllItems";
+      this.buttonClearAllItems.Size = new System.Drawing.Size(157, 25);
+      this.buttonClearAllItems.TabIndex = 26;
+      this.buttonClearAllItems.Text = "Unselect All";
+      this.buttonClearAllItems.UseVisualStyleBackColor = true;
+      this.buttonClearAllItems.Click += new System.EventHandler(this.buttonClearAllItems_Click);
       // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(927, 434);
+      this.ClientSize = new System.Drawing.Size(1010, 665);
+      this.Controls.Add(this.buttonClearAllItems);
+      this.Controls.Add(this.buttonToggleMobi);
+      this.Controls.Add(this.buttonToggleEpub);
+      this.Controls.Add(this.buttonTogglePdf);
       this.Controls.Add(this.buttonDownloadAlleBooks);
       this.Controls.Add(this.buttonDownloadSelectedItems);
       this.Controls.Add(this.labelSelectListViewItems);
       this.Controls.Add(this.buttonClearLogTextBox);
       this.Controls.Add(this.textBoxLog);
-      this.Controls.Add(this.buttonSelectUnselect);
+      this.Controls.Add(this.buttonSelectUnselectAll);
       this.Controls.Add(this.listViewPdfFiles);
       this.Controls.Add(this.buttonGetPdfFileList);
       this.Controls.Add(this.textBoxUrl);
       this.Controls.Add(this.labelUrl);
       this.Controls.Add(this.menuStrip1);
       this.MainMenuStrip = this.menuStrip1;
-      this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.Margin = new System.Windows.Forms.Padding(2);
       this.Name = "FormMain";
       this.ShowIcon = false;
       this.Text = "Download PDF files";
@@ -525,11 +586,15 @@
     private System.Windows.Forms.TextBox textBoxUrl;
     private System.Windows.Forms.Button buttonGetPdfFileList;
     private System.Windows.Forms.ListView listViewPdfFiles;
-    private System.Windows.Forms.Button buttonSelectUnselect;
+    private System.Windows.Forms.Button buttonSelectUnselectAll;
     private System.Windows.Forms.TextBox textBoxLog;
     private System.Windows.Forms.Button buttonClearLogTextBox;
     private System.Windows.Forms.Label labelSelectListViewItems;
     private System.Windows.Forms.Button buttonDownloadSelectedItems;
     private System.Windows.Forms.Button buttonDownloadAlleBooks;
+    private System.Windows.Forms.Button buttonTogglePdf;
+    private System.Windows.Forms.Button buttonToggleEpub;
+    private System.Windows.Forms.Button buttonToggleMobi;
+    private System.Windows.Forms.Button buttonClearAllItems;
   }
 }
