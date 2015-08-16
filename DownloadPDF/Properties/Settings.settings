@@ -23,5 +23,8 @@
     <Setting Name="textBoxUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://</Value>
     </Setting>
+    <Setting Name="textBoxChangeUnknownFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">txt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

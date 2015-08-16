@@ -76,6 +76,8 @@
       this.buttonToggleEpub = new System.Windows.Forms.Button();
       this.buttonToggleMobi = new System.Windows.Forms.Button();
       this.buttonClearAllItems = new System.Windows.Forms.Button();
+      this.buttonChangeUnknownFormat = new System.Windows.Forms.Button();
+      this.textBoxChangeUnknownFormat = new System.Windows.Forms.TextBox();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -379,10 +381,10 @@
       this.listViewPdfFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.listViewPdfFiles.Location = new System.Drawing.Point(19, 298);
+      this.listViewPdfFiles.Location = new System.Drawing.Point(19, 336);
       this.listViewPdfFiles.Margin = new System.Windows.Forms.Padding(2);
       this.listViewPdfFiles.Name = "listViewPdfFiles";
-      this.listViewPdfFiles.Size = new System.Drawing.Size(974, 349);
+      this.listViewPdfFiles.Size = new System.Drawing.Size(974, 311);
       this.listViewPdfFiles.TabIndex = 5;
       this.listViewPdfFiles.UseCompatibleStateImageBehavior = false;
       // 
@@ -513,11 +515,35 @@
       this.buttonClearAllItems.UseVisualStyleBackColor = true;
       this.buttonClearAllItems.Click += new System.EventHandler(this.buttonClearAllItems_Click);
       // 
+      // buttonChangeUnknownFormat
+      // 
+      this.buttonChangeUnknownFormat.Enabled = false;
+      this.buttonChangeUnknownFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.buttonChangeUnknownFormat.Location = new System.Drawing.Point(19, 298);
+      this.buttonChangeUnknownFormat.Margin = new System.Windows.Forms.Padding(2);
+      this.buttonChangeUnknownFormat.Name = "buttonChangeUnknownFormat";
+      this.buttonChangeUnknownFormat.Size = new System.Drawing.Size(331, 25);
+      this.buttonChangeUnknownFormat.TabIndex = 27;
+      this.buttonChangeUnknownFormat.Text = "Change unknown format to";
+      this.buttonChangeUnknownFormat.UseVisualStyleBackColor = true;
+      this.buttonChangeUnknownFormat.Click += new System.EventHandler(this.buttonChangeUnknownFormat_Click);
+      // 
+      // textBoxChangeUnknownFormat
+      // 
+      this.textBoxChangeUnknownFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.textBoxChangeUnknownFormat.Location = new System.Drawing.Point(368, 303);
+      this.textBoxChangeUnknownFormat.Name = "textBoxChangeUnknownFormat";
+      this.textBoxChangeUnknownFormat.Size = new System.Drawing.Size(170, 23);
+      this.textBoxChangeUnknownFormat.TabIndex = 28;
+      this.textBoxChangeUnknownFormat.Text = "txt";
+      // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1010, 665);
+      this.Controls.Add(this.textBoxChangeUnknownFormat);
+      this.Controls.Add(this.buttonChangeUnknownFormat);
       this.Controls.Add(this.buttonClearAllItems);
       this.Controls.Add(this.buttonToggleMobi);
       this.Controls.Add(this.buttonToggleEpub);
@@ -596,5 +622,7 @@
     private System.Windows.Forms.Button buttonToggleEpub;
     private System.Windows.Forms.Button buttonToggleMobi;
     private System.Windows.Forms.Button buttonClearAllItems;
+    private System.Windows.Forms.Button buttonChangeUnknownFormat;
+    private System.Windows.Forms.TextBox textBoxChangeUnknownFormat;
   }
 }

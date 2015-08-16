@@ -239,13 +239,13 @@
       <englishValue>Select-Unselect PDF</englishValue>
       <frenchValue>Intervertir les PDF</frenchValue>
     </term>
-    
+
     <term>
       <name>Select-Unselect EPUB</name>
       <englishValue>Select-Unselect EPUB</englishValue>
       <frenchValue>Intervertir les EPUB</frenchValue>
     </term>
-    
+
     <term>
       <name>Select-Unselect MOBI</name>
       <englishValue>Select-Unselect MOBI</englishValue>
@@ -296,6 +296,56 @@
       <englishValue>Download over</englishValue>
       <frenchValue>Téléchargement terminé</frenchValue>
     </term>
+    <term>
+      <name>Change unknown format to</name>
+      <englishValue>Change unknown format to</englishValue>
+      <frenchValue>Changer fomat inconnu pour</frenchValue>
+    </term>
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
+    <!--<term>
+      <name></name>
+      <englishValue></englishValue>
+      <frenchValue></frenchValue>
+    </term>-->
     <!--<term>
       <name></name>
       <englishValue></englishValue>

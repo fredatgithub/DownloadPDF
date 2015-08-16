@@ -77,6 +77,15 @@ namespace DownloadPDF
       GetWindowValue();
       LoadLanguages();
       SetLanguage(Settings.Default.LastLanguageUsed);
+      SetDefaultUrl();
+    }
+
+    private void SetDefaultUrl()
+    {
+      if (textBoxUrl.Text == string.Empty || textBoxUrl.Text.ToLower() == "https://")
+      {
+        textBoxUrl.Text = "http://blogs.msdn.com/b/mssmallbiz/archive/2015/07/07/i-m-giving-away-millions-of-free-microsoft-ebooks-again-including-windows-10-windows-8-1-windows-8-windows-7-office-2013-office-365-sharepoint-2013-dynamics-crm-powershell-exchange-server-lync-2013-system-center-azure-clo.aspx";
+      }
     }
 
     private void LoadLanguages()
@@ -267,6 +276,7 @@ namespace DownloadPDF
       Height = Settings.Default.WindowHeight;
       Top = Settings.Default.WindowTop < 0 ? 0 : Settings.Default.WindowTop;
       Left = Settings.Default.WindowLeft < 0 ? 0 : Settings.Default.WindowLeft;
+      textBoxChangeUnknownFormat.Text = Settings.Default.textBoxChangeUnknownFormat;
       textBoxUrl.Text = Settings.Default.textBoxUrl;
     }
 
@@ -278,6 +288,7 @@ namespace DownloadPDF
       Settings.Default.WindowTop = Top;
       Settings.Default.LastLanguageUsed = frenchToolStripMenuItem.Checked ? "French" : "English";
       Settings.Default.textBoxUrl = textBoxUrl.Text;
+      Settings.Default.textBoxChangeUnknownFormat = textBoxChangeUnknownFormat.Text;
       Settings.Default.Save();
     }
 
@@ -336,12 +347,12 @@ namespace DownloadPDF
           labelSelectListViewItems.Text = _languageDicoEn["Select the PDF files you want to download"];
           buttonGetPdfFileList.Text = _languageDicoEn["Get Titles"];
           buttonDownloadSelectedItems.Text = _languageDicoEn["Download"];
-
           buttonDownloadAlleBooks.Text = _languageDicoEn["List all ebooks"];
           buttonClearAllItems.Text = _languageDicoEn["Unselect All"];
           buttonTogglePdf.Text = _languageDicoEn["Select-Unselect PDF"];
           buttonToggleEpub.Text = _languageDicoEn["Select-Unselect EPUB"];
           buttonToggleMobi.Text = _languageDicoEn["Select-Unselect MOBI"];
+          buttonChangeUnknownFormat.Text = _languageDicoEn["Change unknown format to"];
 
           _currentLanguage = "English";
           break;
@@ -384,6 +395,7 @@ namespace DownloadPDF
           buttonTogglePdf.Text = _languageDicoFr["Select-Unselect PDF"];
           buttonToggleEpub.Text = _languageDicoFr["Select-Unselect EPUB"];
           buttonToggleMobi.Text = _languageDicoFr["Select-Unselect MOBI"];
+          buttonChangeUnknownFormat.Text = _languageDicoFr["Change unknown format to"];
           _currentLanguage = "French";
           break;
       }
@@ -502,37 +514,9 @@ namespace DownloadPDF
       return result;
     }
 
-    private static Control FindFocusedControl(Control container)
-    {
-      foreach (Control childControl in container.Controls.Cast<Control>().Where(childControl => childControl.Focused))
-      {
-        return childControl;
-      }
-
-      return (from Control childControl in container.Controls
-              select FindFocusedControl(childControl)).FirstOrDefault(maybeFocusedControl => maybeFocusedControl != null);
-    }
-
-    private static Control FindFocusedControl(IEnumerable<Control> container)
-    {
-      return container.FirstOrDefault(control => control.Focused);
-    }
-
     private static Control FindFocusedControl(List<Control> container)
     {
       return container.FirstOrDefault(control => control.Focused);
-    }
-
-    private static string ChooseDirectory()
-    {
-      string result = string.Empty;
-      FolderBrowserDialog fbd = new FolderBrowserDialog();
-      if (fbd.ShowDialog() == DialogResult.OK)
-      {
-        result = fbd.SelectedPath;
-      }
-
-      return result;
     }
 
     private static bool GetWebClientBinaries(string url = "http://www.google.com/",
@@ -624,7 +608,7 @@ namespace DownloadPDF
       HtmlDocument doc = new HtmlDocument();
       doc.LoadHtml(queryContent);
       HtmlNode bodyNode = doc.DocumentNode.SelectSingleNode("//body | //BODY");
-      List<string> downloadList = new List<string>();
+      var downloadList = new List<string>();
       var links = doc.DocumentNode.Descendants("a");
       foreach (var link in links)
       {
@@ -640,7 +624,6 @@ namespace DownloadPDF
       {
         downloadList.Add(link.InnerText);
       }
-      // TODO to be debug
 
       listViewPdfFiles.Items.Clear();
 
@@ -659,7 +642,7 @@ namespace DownloadPDF
       int PdfFileCount = 0;
       string tmpPdfFileName = "";
       string tmpPdfFiledescription = "";
-      List<string> listOfPdfFiles = new List<string>();
+      var listOfPdfFiles = new List<string>();
       if (listOfPdfFiles.Count != 0)
       {
         ListViewItem item1 = new ListViewItem(tmpPdfFileName) { Checked = false };
@@ -837,6 +820,7 @@ namespace DownloadPDF
 
     private void buttonDownloadAlleBooks_Click(object sender, EventArgs e)
     {
+      Logger.Clear(textBoxLog);
       HttpWebRequest request = WebRequest.Create(textBoxUrl.Text) as HttpWebRequest;
       request.Method = "GET";
       HttpWebResponse response = request.GetResponse() as HttpWebResponse;
@@ -925,7 +909,7 @@ namespace DownloadPDF
       int bookNb = 1;
       foreach (Tuple<string, string, string> t in ebooksFileFormatOK)
       {
-        if (IsInList(t.Item1, new [] {"ZIP", "EPUB", "MOBI", "PDF", "DOC", "XPS", "DOCX", "PPTX"}))
+        if (IsInList(t.Item1, new[] { "ZIP", "EPUB", "MOBI", "PDF", "DOC", "XPS", "DOCX", "PPTX" }))
         {
           ebooksWellformatted.Add(Tuple.Create("ebook" + bookNb, t.Item1, t.Item3.Trim()));
           bookNb++;
@@ -964,7 +948,7 @@ namespace DownloadPDF
       Logger.Add(textBoxLog, Translate("search is over, please check ebooks you want to download"));
     }
 
-    public static bool IsInList(string word, string [] listOfWords)
+    public static bool IsInList(string word, string[] listOfWords)
     {
       bool result = false;
       // LINQ return listOfWords.Any(wordInList => string.Compare(word, wordInList, StringComparison.InvariantCultureIgnoreCase) == 0);
@@ -987,6 +971,7 @@ namespace DownloadPDF
       buttonTogglePdf.Enabled = true;
       buttonSelectUnselectAll.Enabled = true;
       buttonClearAllItems.Enabled = true;
+      buttonChangeUnknownFormat.Enabled = true;
     }
 
     private void buttonTogglePdf_Click(object sender, EventArgs e)
@@ -1034,6 +1019,23 @@ namespace DownloadPDF
         foreach (ListViewItem row in listViewPdfFiles.Items)
         {
           row.Checked = false;
+        }
+      }
+    }
+
+    private void buttonChangeUnknownFormat_Click(object sender, EventArgs e)
+    {
+      if (listViewPdfFiles.Items.Count != 0)
+      {
+        if (textBoxChangeUnknownFormat.Text != string.Empty)
+        {
+          foreach (ListViewItem row in listViewPdfFiles.Items)
+          {
+            if (string.Equals(row.SubItems[2].Text, "UnknownFileFormat", StringComparison.CurrentCultureIgnoreCase))
+            {
+              row.SubItems[2].Text = textBoxChangeUnknownFormat.Text;
+            }
+          }
         }
       }
     }
