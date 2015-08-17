@@ -44,7 +44,6 @@ namespace DownloadPDF
 
     readonly Dictionary<string, string> _languageDicoEn = new Dictionary<string, string>();
     readonly Dictionary<string, string> _languageDicoFr = new Dictionary<string, string>();
-    private const string OneSpace = " ";
     private string _currentLanguage = "english";
 
     private void QuitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -446,9 +445,9 @@ namespace DownloadPDF
       if (tb != ActiveControl) return;
       if (tb.Text == string.Empty)
       {
-        DisplayMessage(Translate("ThereIs") + OneSpace +
-          Translate(errorMessage) + OneSpace +
-          Translate("ToCut") + OneSpace, Translate(errorMessage),
+        DisplayMessage(Translate("ThereIs") + Punctuation.OneSpace +
+          Translate(errorMessage) + Punctuation.OneSpace +
+          Translate("ToCut") + Punctuation.OneSpace, Translate(errorMessage),
           MessageBoxButtons.OK);
         return;
       }
@@ -469,7 +468,7 @@ namespace DownloadPDF
       if (tb != ActiveControl) return;
       if (tb.Text == string.Empty)
       {
-        DisplayMessage(Translate("ThereIsNothingToCopy") + OneSpace,
+        DisplayMessage(Translate("ThereIsNothingToCopy") + Punctuation.OneSpace,
           Translate(message), MessageBoxButtons.OK);
         return;
       }
@@ -656,7 +655,7 @@ namespace DownloadPDF
       buttonDownloadSelectedItems.Enabled = true;
       Logger.Add(textBoxLog, PdfFileCount + Punctuation.OneSpace +
         Translate("PDF file") + Plural(PdfFileCount) +
-        Punctuation.OneSpace + Translate(Plural(PdfFileCount, "has")) + OneSpace +
+        Punctuation.OneSpace + Translate(Plural(PdfFileCount, "has")) + Punctuation.OneSpace +
         Translate("been found") + FrenchPlural(PdfFileCount, _currentLanguage));
     }
 
@@ -805,12 +804,12 @@ namespace DownloadPDF
 
         if (GetWebClientBinaries(url, bookName))
         {
-          Logger.Add(textBoxLog, Translate("Download ok for ebook") + Punctuation.Colon + Punctuation.OneSpace);
+          Logger.Add(textBoxLog, Translate("Download ok for ebook"));
           Logger.Add(textBoxLog, Translate("Name for ebook") + Punctuation.Colon + Punctuation.OneSpace + bookName);
         }
         else
         {
-          Logger.Add(textBoxLog, Translate("Download not ok for ebook") + Punctuation.Colon + Punctuation.OneSpace);
+          Logger.Add(textBoxLog, Translate("Download not ok for ebook"));
           Logger.Add(textBoxLog, Translate("Name for ebook") + Punctuation.Colon + Punctuation.OneSpace + bookName);
           Logger.Add(textBoxLog, Translate("ebook url") + Punctuation.Colon + Punctuation.OneSpace + url);
         }
@@ -844,7 +843,6 @@ namespace DownloadPDF
       HtmlDocument doc = new HtmlDocument();
       doc.LoadHtml(queryContent);
       var downloadList = new List<string>();
-      new Tuple<string, string, string>("Name", "url", "File_Format");
       var ebooks = new List<Tuple<string, string, string>>();
       var links = doc.DocumentNode.Descendants("a");
       foreach (var link in links)
@@ -944,6 +942,7 @@ namespace DownloadPDF
         listViewPdfFiles.Items.Add(item1);
       }
 
+      ebooksWellformatted = null;
       EnableToggleButtons();
       buttonDownloadSelectedItems.Enabled = true;
       Logger.Add(textBoxLog, Translate("search is over, please check ebooks you want to download"));
