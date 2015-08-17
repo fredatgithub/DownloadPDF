@@ -119,7 +119,7 @@ namespace DownloadPDF
 
     private static void CreateLanguageFile()
     {
-      List<string> minimumVersion = new List<string>
+      var minimumVersion = new List<string>
       {
         "<?xml version=\"1.0\" encoding=\"utf - 8\" ?>",
         "<Document>",
@@ -619,6 +619,7 @@ namespace DownloadPDF
           downloadList.Add(href.Value);
         }
       }
+
       downloadList = new List<string>();
       foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
       {
@@ -890,7 +891,7 @@ namespace DownloadPDF
       ebooksNOK = null;
       ebooks = null;
       var ebooksNoFileFormat = new List<Tuple<string, string, string>>();
-      var ebooksFileFormatOK = new List<Tuple<string, string, string>>();
+      var ebooksFileFormatOk = new List<Tuple<string, string, string>>();
       foreach (Tuple<string, string, string> t in ebooksOK)
       {
         if (t.Item1 == "")
@@ -899,14 +900,14 @@ namespace DownloadPDF
         }
         else
         {
-          ebooksFileFormatOK.Add(t);
+          ebooksFileFormatOk.Add(t);
         }
       }
 
       ebooksOK = null;
       var ebooksWellformatted = new List<Tuple<string, string, string>>();
       int bookNb = 1;
-      foreach (Tuple<string, string, string> t in ebooksFileFormatOK)
+      foreach (Tuple<string, string, string> t in ebooksFileFormatOk)
       {
         if (IsInList(t.Item1, new[] { "ZIP", "EPUB", "MOBI", "PDF", "DOC", "XPS", "DOCX", "PPTX" }))
         {
@@ -919,7 +920,7 @@ namespace DownloadPDF
         }
       }
 
-      ebooksFileFormatOK = null;
+      ebooksFileFormatOk = null;
       listViewPdfFiles.Items.Clear();
       listViewPdfFiles.Columns.Add("Download", 65, HorizontalAlignment.Left);
       listViewPdfFiles.Columns.Add("Book Name", 240, HorizontalAlignment.Left);
