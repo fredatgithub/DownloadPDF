@@ -95,7 +95,18 @@ namespace DownloadPDF
       }
 
       // read the translation file and feed the language
-      XDocument xDoc = XDocument.Load(Settings.Default.LanguageFileName);
+      XDocument xDoc;
+      try
+      {
+        xDoc = XDocument.Load(Settings.Default.LanguageFileName);
+      }
+      catch (Exception exception)
+      {
+        MessageBox.Show("Error while loading xml file " + exception);
+        CreateLanguageFile();
+        return;
+      }
+
       var result = from node in xDoc.Descendants("term")
                    where node.HasElements
                    let xElementName = node.Element("name")
@@ -112,8 +123,23 @@ namespace DownloadPDF
                    };
       foreach (var i in result)
       {
-        _languageDicoEn.Add(i.name, i.englishValue);
-        _languageDicoFr.Add(i.name, i.frenchValue);
+        if (!_languageDicoEn.ContainsKey(i.name))
+        {
+          _languageDicoEn.Add(i.name, i.englishValue);
+        }
+        else
+        {
+          MessageBox.Show("Your xml file has duplicate like: " + i.name);
+        }
+
+        if (!_languageDicoFr.ContainsKey(i.name))
+        {
+          _languageDicoFr.Add(i.name, i.frenchValue);
+        }
+        else
+        {
+          MessageBox.Show("Your xml file has duplicate like: " + i.name);
+        }
       }
     }
 
@@ -640,7 +666,7 @@ namespace DownloadPDF
       listViewPdfFiles.FullRowSelect = true;
       listViewPdfFiles.GridLines = true;
       listViewPdfFiles.Sorting = SortOrder.None;
-      int PdfFileCount = 0;
+      int pdfFileCount = 0;
       string tmpPdfFileName = "";
       string tmpPdfFiledescription = "";
       var listOfPdfFiles = new List<string>();
@@ -650,14 +676,14 @@ namespace DownloadPDF
         item1.SubItems.Add(tmpPdfFileName);
         item1.SubItems.Add(tmpPdfFiledescription);
         listViewPdfFiles.Items.Add(item1);
-        PdfFileCount++;
+        pdfFileCount++;
       }
 
       buttonDownloadSelectedItems.Enabled = true;
-      Logger.Add(textBoxLog, PdfFileCount + Punctuation.OneSpace +
-        Translate("PDF file") + Plural(PdfFileCount) +
-        Punctuation.OneSpace + Translate(Plural(PdfFileCount, "has")) + Punctuation.OneSpace +
-        Translate("been found") + FrenchPlural(PdfFileCount, _currentLanguage));
+      Logger.Add(textBoxLog, pdfFileCount + Punctuation.OneSpace +
+        Translate("PDF file") + Plural(pdfFileCount) +
+        Punctuation.OneSpace + Translate(Plural(pdfFileCount, "has")) + Punctuation.OneSpace +
+        Translate("been found") + FrenchPlural(pdfFileCount, _currentLanguage));
     }
 
     public static string InvertModifier(string text, bool correctCasing = true)
@@ -869,30 +895,30 @@ namespace DownloadPDF
       }
 
       // removing bad entries
-      var ebooksOK = new List<Tuple<string, string, string>>();
-      var ebooksNOK = new List<Tuple<string, string, string>>();
+      var ebooksOk = new List<Tuple<string, string, string>>();
+      var ebooksNok = new List<Tuple<string, string, string>>();
       foreach (Tuple<string, string, string> t in ebooks)
       {
         if (IsInList(t.Item1, new[] { "ZIP", "EPUB", "MOBI", "PDF", "DOC", "XPS", "DOCX", "PPTX" }))
         {
-          ebooksOK.Add(t);
+          ebooksOk.Add(t);
         }
         else if (t.Item3.StartsWith("http://ligman.me/"))
         {
-          ebooksOK.Add(t);
+          ebooksOk.Add(t);
         }
         else
         {
-          ebooksNOK.Add(t);
+          ebooksNok.Add(t);
         }
 
       }
 
-      ebooksNOK = null;
+      ebooksNok = null;
       ebooks = null;
       var ebooksNoFileFormat = new List<Tuple<string, string, string>>();
       var ebooksFileFormatOk = new List<Tuple<string, string, string>>();
-      foreach (Tuple<string, string, string> t in ebooksOK)
+      foreach (Tuple<string, string, string> t in ebooksOk)
       {
         if (t.Item1 == "")
         {
@@ -904,7 +930,7 @@ namespace DownloadPDF
         }
       }
 
-      ebooksOK = null;
+      ebooksOk = null;
       var ebooksWellformatted = new List<Tuple<string, string, string>>();
       int bookNb = 1;
       foreach (Tuple<string, string, string> t in ebooksFileFormatOk)
